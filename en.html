@@ -1,0 +1,1590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sushi Kazu 鮨一 — Omakase in New York</title>
+    <meta name="description" content="Sushi Kazu 鮨一 — An intimate eight-seat omakase counter in Midtown Manhattan. Chef Kazu brings 15 years of Tokyo training to New York.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #0a0a0a;
+            --bg-light: #111111;
+            --bg-card: #141414;
+            --cream: #f5f0e8;
+            --cream-muted: #c8c0b4;
+            --gold: #b8976a;
+            --gold-dim: #8a7050;
+            --border: #222222;
+            --font-serif: 'Cormorant Garamond', 'Georgia', serif;
+            --font-sans: 'Inter', -apple-system, 'Helvetica Neue', sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--bg);
+            color: var(--cream);
+            font-weight: 300;
+            font-size: 15px;
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        a {
+            color: var(--gold);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: var(--cream);
+        }
+
+        img {
+            display: block;
+            max-width: 100%;
+        }
+
+        /* ── Typography ── */
+
+        h1, h2, h3, h4 {
+            font-family: var(--font-serif);
+            font-weight: 400;
+            letter-spacing: 0.02em;
+        }
+
+        .section-label {
+            font-family: var(--font-sans);
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 12px;
+        }
+
+        .section-title {
+            font-family: var(--font-serif);
+            font-size: clamp(32px, 5vw, 48px);
+            font-weight: 400;
+            color: var(--cream);
+            margin-bottom: 24px;
+            line-height: 1.2;
+        }
+
+        .divider {
+            width: 48px;
+            height: 1px;
+            background: var(--gold);
+            margin: 32px 0;
+        }
+
+        .divider-center {
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* ── Layout ── */
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .container-narrow {
+            max-width: 780px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        section {
+            padding: 120px 0;
+        }
+
+        @media (max-width: 768px) {
+            section {
+                padding: 80px 0;
+            }
+        }
+
+        /* ── Navigation ── */
+
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 0 32px;
+            height: 72px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(10, 10, 10, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            transition: background 0.3s ease;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: baseline;
+            gap: 12px;
+            text-decoration: none;
+            color: var(--cream);
+        }
+
+        .nav-logo-kanji {
+            font-family: var(--font-serif);
+            font-size: 26px;
+            font-weight: 400;
+            letter-spacing: 0.05em;
+        }
+
+        .nav-logo-text {
+            font-family: var(--font-sans);
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--cream-muted);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-size: 12px;
+            font-weight: 400;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--cream-muted);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--cream);
+        }
+
+        /* Language Switcher */
+
+        .lang-switcher {
+            position: relative;
+        }
+
+        .lang-toggle {
+            font-size: 12px;
+            font-weight: 400;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--cream-muted);
+            background: none;
+            border: 1px solid var(--border);
+            padding: 6px 14px;
+            cursor: pointer;
+            font-family: var(--font-sans);
+            transition: border-color 0.3s ease, color 0.3s ease;
+            border-radius: 2px;
+        }
+
+        .lang-toggle:hover {
+            border-color: var(--gold-dim);
+            color: var(--cream);
+        }
+
+        .lang-dropdown {
+            display: none;
+            position: absolute;
+            top: calc(100% + 8px);
+            right: 0;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            min-width: 160px;
+            padding: 8px 0;
+            z-index: 1001;
+        }
+
+        .lang-dropdown.open {
+            display: block;
+        }
+
+        .lang-dropdown a {
+            display: block;
+            padding: 10px 20px;
+            font-size: 13px;
+            color: var(--cream-muted);
+            text-decoration: none;
+            letter-spacing: 0.04em;
+            transition: background 0.2s ease, color 0.2s ease;
+        }
+
+        .lang-dropdown a:hover {
+            background: rgba(184, 151, 106, 0.08);
+            color: var(--cream);
+        }
+
+        .lang-dropdown a.active {
+            color: var(--gold);
+        }
+
+        /* Mobile Nav */
+
+        .nav-hamburger {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .nav-hamburger span {
+            display: block;
+            width: 22px;
+            height: 1px;
+            background: var(--cream);
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+
+        .nav-hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(4px, 4px);
+        }
+
+        .nav-hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .nav-hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(4px, -4px);
+        }
+
+        @media (max-width: 960px) {
+            .nav-hamburger {
+                display: flex;
+            }
+
+            .nav-links {
+                display: none;
+                position: fixed;
+                top: 72px;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(10, 10, 10, 0.97);
+                flex-direction: column;
+                justify-content: flex-start;
+                padding-top: 48px;
+                gap: 0;
+            }
+
+            .nav-links.open {
+                display: flex;
+            }
+
+            .nav-links li {
+                width: 100%;
+                text-align: center;
+            }
+
+            .nav-links a {
+                display: block;
+                padding: 18px 24px;
+                font-size: 14px;
+                letter-spacing: 0.2em;
+            }
+
+            .lang-switcher {
+                margin-top: 16px;
+            }
+
+            .lang-dropdown {
+                position: static;
+                border: none;
+                background: rgba(20, 20, 20, 0.5);
+            }
+        }
+
+        /* ── Hero ── */
+
+        .hero {
+            position: relative;
+            height: 100vh;
+            min-height: 600px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            overflow: hidden;
+            padding: 0;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background-image: url('https://images.unsplash.com/photo-1579871494447-9811cf80d66c?w=1400&q=80');
+            background-size: cover;
+            background-position: center;
+            filter: brightness(0.35) saturate(0.7);
+        }
+
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                to bottom,
+                rgba(10, 10, 10, 0.5) 0%,
+                rgba(10, 10, 10, 0.2) 40%,
+                rgba(10, 10, 10, 0.4) 70%,
+                rgba(10, 10, 10, 0.95) 100%
+            );
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            padding: 0 24px;
+        }
+
+        .hero-kanji {
+            font-family: var(--font-serif);
+            font-size: clamp(64px, 12vw, 120px);
+            font-weight: 300;
+            letter-spacing: 0.15em;
+            color: var(--cream);
+            line-height: 1;
+            margin-bottom: 16px;
+        }
+
+        .hero-name {
+            font-family: var(--font-sans);
+            font-size: clamp(12px, 2vw, 16px);
+            font-weight: 500;
+            letter-spacing: 0.5em;
+            text-transform: uppercase;
+            color: var(--cream-muted);
+            margin-bottom: 32px;
+        }
+
+        .hero-tagline {
+            font-family: var(--font-serif);
+            font-size: clamp(18px, 2.5vw, 24px);
+            font-weight: 300;
+            font-style: italic;
+            color: var(--cream);
+            margin-bottom: 48px;
+            opacity: 0.85;
+        }
+
+        .hero-cta {
+            display: inline-block;
+            font-family: var(--font-sans);
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--cream);
+            border: 1px solid var(--gold);
+            padding: 16px 48px;
+            text-decoration: none;
+            transition: background 0.4s ease, color 0.4s ease;
+        }
+
+        .hero-cta:hover {
+            background: var(--gold);
+            color: var(--bg);
+        }
+
+        .hero-note {
+            margin-top: 40px;
+            font-size: 12px;
+            letter-spacing: 0.08em;
+            color: var(--cream-muted);
+            opacity: 0.6;
+        }
+
+        /* ── Philosophy ── */
+
+        .philosophy {
+            background: var(--bg);
+        }
+
+        .philosophy-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .philosophy-image {
+            position: relative;
+            overflow: hidden;
+            aspect-ratio: 4 / 5;
+        }
+
+        .philosophy-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.85) saturate(0.8);
+        }
+
+        .philosophy-image::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border: 1px solid rgba(184, 151, 106, 0.15);
+            pointer-events: none;
+        }
+
+        .philosophy-text p {
+            color: var(--cream-muted);
+            margin-bottom: 20px;
+            font-size: 15px;
+            line-height: 1.85;
+        }
+
+        @media (max-width: 768px) {
+            .philosophy-grid {
+                grid-template-columns: 1fr;
+                gap: 48px;
+            }
+
+            .philosophy-image {
+                max-width: 500px;
+                order: -1;
+            }
+        }
+
+        /* ── Menu ── */
+
+        .menu {
+            background: var(--bg-light);
+        }
+
+        .menu-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .menu-header p {
+            color: var(--cream-muted);
+            max-width: 520px;
+            margin: 0 auto;
+            font-size: 15px;
+        }
+
+        .menu-category {
+            margin-bottom: 72px;
+        }
+
+        .menu-category:last-child {
+            margin-bottom: 0;
+        }
+
+        .menu-category-title {
+            font-family: var(--font-serif);
+            font-size: 28px;
+            font-weight: 400;
+            color: var(--cream);
+            margin-bottom: 8px;
+        }
+
+        .menu-category-sub {
+            font-size: 12px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--gold-dim);
+            margin-bottom: 32px;
+        }
+
+        .menu-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+        .menu-item:first-of-type {
+            border-top: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+        .menu-item-left {
+            flex: 1;
+            padding-right: 24px;
+        }
+
+        .menu-item-name {
+            font-family: var(--font-serif);
+            font-size: 20px;
+            font-weight: 400;
+            color: var(--cream);
+            margin-bottom: 4px;
+        }
+
+        .menu-item-desc {
+            font-size: 13px;
+            color: var(--cream-muted);
+            opacity: 0.7;
+        }
+
+        .menu-item-price {
+            font-family: var(--font-sans);
+            font-size: 16px;
+            font-weight: 400;
+            color: var(--gold);
+            white-space: nowrap;
+        }
+
+        .menu-addons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0 48px;
+        }
+
+        @media (max-width: 600px) {
+            .menu-addons {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .menu-note {
+            text-align: center;
+            margin-top: 48px;
+            font-size: 13px;
+            color: var(--cream-muted);
+            opacity: 0.6;
+            font-style: italic;
+        }
+
+        /* ── Reservations ── */
+
+        .reservations {
+            background: var(--bg);
+            text-align: center;
+        }
+
+        .reservations-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .reservations p {
+            color: var(--cream-muted);
+            margin-bottom: 20px;
+            font-size: 15px;
+        }
+
+        .btn-primary {
+            display: inline-block;
+            font-family: var(--font-sans);
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--bg);
+            background: var(--gold);
+            padding: 18px 56px;
+            text-decoration: none;
+            transition: background 0.4s ease;
+            margin-bottom: 16px;
+        }
+
+        .btn-primary:hover {
+            background: #c9a87b;
+            color: var(--bg);
+        }
+
+        .btn-secondary {
+            display: inline-block;
+            font-family: var(--font-sans);
+            font-size: 12px;
+            font-weight: 400;
+            letter-spacing: 0.12em;
+            color: var(--cream-muted);
+            text-decoration: none;
+            padding: 12px 24px;
+            transition: color 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            color: var(--cream);
+        }
+
+        .hours-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            max-width: 460px;
+            margin: 40px auto 0;
+            text-align: left;
+        }
+
+        .hours-block h4 {
+            font-family: var(--font-sans);
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 8px;
+        }
+
+        .hours-block p {
+            font-size: 14px;
+            color: var(--cream-muted);
+            margin-bottom: 4px;
+        }
+
+        .hours-block .closed {
+            color: var(--gold-dim);
+            font-style: italic;
+        }
+
+        .res-note {
+            margin-top: 32px;
+            font-size: 13px;
+            color: var(--cream-muted);
+            opacity: 0.6;
+            font-style: italic;
+        }
+
+        /* ── Private Dining ── */
+
+        .private-dining {
+            background: var(--bg-light);
+        }
+
+        .private-dining-inner {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .private-dining-text p {
+            color: var(--cream-muted);
+            margin-bottom: 20px;
+            font-size: 15px;
+            line-height: 1.85;
+        }
+
+        .private-dining-details {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 40px;
+        }
+
+        .private-dining-details h3 {
+            font-size: 24px;
+            margin-bottom: 24px;
+        }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 14px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            font-size: 14px;
+        }
+
+        .detail-row:last-child {
+            border-bottom: none;
+        }
+
+        .detail-label {
+            color: var(--cream-muted);
+        }
+
+        .detail-value {
+            color: var(--cream);
+            text-align: right;
+        }
+
+        @media (max-width: 768px) {
+            .private-dining-inner {
+                grid-template-columns: 1fr;
+                gap: 48px;
+            }
+        }
+
+        /* ── FAQ ── */
+
+        .faq {
+            background: var(--bg);
+        }
+
+        .faq-header {
+            text-align: center;
+            margin-bottom: 64px;
+        }
+
+        .faq-list {
+            max-width: 780px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .faq-question {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            padding: 24px 0;
+            background: none;
+            border: none;
+            font-family: var(--font-serif);
+            font-size: 18px;
+            font-weight: 400;
+            color: var(--cream);
+            text-align: left;
+            cursor: pointer;
+            transition: color 0.3s ease;
+            line-height: 1.4;
+        }
+
+        .faq-question:hover {
+            color: var(--gold);
+        }
+
+        .faq-icon {
+            flex-shrink: 0;
+            width: 20px;
+            height: 20px;
+            margin-left: 24px;
+            position: relative;
+        }
+
+        .faq-icon::before,
+        .faq-icon::after {
+            content: '';
+            position: absolute;
+            background: var(--cream-muted);
+            transition: transform 0.3s ease;
+        }
+
+        .faq-icon::before {
+            width: 12px;
+            height: 1px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .faq-icon::after {
+            width: 1px;
+            height: 12px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .faq-item.active .faq-icon::after {
+            transform: translate(-50%, -50%) rotate(90deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, padding 0.4s ease;
+        }
+
+        .faq-answer-inner {
+            padding: 0 0 24px 0;
+            font-size: 14px;
+            color: var(--cream-muted);
+            line-height: 1.8;
+        }
+
+        /* ── Instagram ── */
+
+        .instagram {
+            background: var(--bg-light);
+            text-align: center;
+        }
+
+        .instagram-title {
+            font-family: var(--font-sans);
+            font-size: 14px;
+            font-weight: 400;
+            letter-spacing: 0.2em;
+            color: var(--cream-muted);
+            margin-bottom: 40px;
+        }
+
+        .instagram-title a {
+            color: var(--cream-muted);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .instagram-title a:hover {
+            color: var(--gold);
+        }
+
+        .instagram-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 4px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .instagram-item {
+            position: relative;
+            aspect-ratio: 1;
+            overflow: hidden;
+        }
+
+        .instagram-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.8) saturate(0.7);
+            transition: filter 0.4s ease, transform 0.4s ease;
+        }
+
+        .instagram-item:hover img {
+            filter: brightness(0.95) saturate(0.9);
+            transform: scale(1.03);
+        }
+
+        @media (max-width: 768px) {
+            .instagram-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .instagram-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* ── Footer ── */
+
+        .footer {
+            background: var(--bg);
+            border-top: 1px solid rgba(255, 255, 255, 0.04);
+            padding: 80px 0 40px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr 1fr;
+            gap: 48px;
+            margin-bottom: 64px;
+        }
+
+        .footer-brand .footer-logo-kanji {
+            font-family: var(--font-serif);
+            font-size: 32px;
+            color: var(--cream);
+            margin-bottom: 4px;
+        }
+
+        .footer-brand .footer-logo-text {
+            font-size: 11px;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--cream-muted);
+            margin-bottom: 20px;
+        }
+
+        .footer-brand p {
+            font-size: 13px;
+            color: var(--cream-muted);
+            opacity: 0.6;
+            line-height: 1.7;
+        }
+
+        .footer-col h4 {
+            font-family: var(--font-sans);
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 20px;
+        }
+
+        .footer-col p,
+        .footer-col a {
+            font-size: 13px;
+            color: var(--cream-muted);
+            line-height: 2;
+            display: block;
+        }
+
+        .footer-col a:hover {
+            color: var(--cream);
+        }
+
+        .footer-reserve {
+            text-align: center;
+            margin-bottom: 64px;
+            padding-top: 48px;
+            border-top: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+        .footer-reserve p {
+            font-family: var(--font-serif);
+            font-size: 22px;
+            color: var(--cream);
+            margin-bottom: 24px;
+            font-style: italic;
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 32px;
+            border-top: 1px solid rgba(255, 255, 255, 0.04);
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .footer-copyright {
+            font-size: 12px;
+            color: var(--cream-muted);
+            opacity: 0.4;
+        }
+
+        .footer-lang-links {
+            display: flex;
+            gap: 24px;
+        }
+
+        .footer-lang-links a {
+            font-size: 12px;
+            color: var(--cream-muted);
+            opacity: 0.5;
+        }
+
+        .footer-lang-links a:hover {
+            opacity: 1;
+            color: var(--cream);
+        }
+
+        @media (max-width: 768px) {
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 40px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        /* ── Chat Widget Placeholder ── */
+
+        #omago-chat-widget {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            z-index: 9999;
+        }
+
+        /* ── Animations ── */
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="nav" id="nav">
+        <a href="#" class="nav-logo">
+            <span class="nav-logo-kanji">鮨一</span>
+            <span class="nav-logo-text">Sushi Kazu</span>
+        </a>
+
+        <button class="nav-hamburger" id="navHamburger" aria-label="Toggle menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#philosophy">Philosophy</a></li>
+            <li><a href="#menu">Menu</a></li>
+            <li><a href="#reservations">Reservations</a></li>
+            <li><a href="#private-dining">Private Dining</a></li>
+            <li><a href="#faq">FAQ</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li class="lang-switcher">
+                <button class="lang-toggle" id="langToggle">EN</button>
+                <div class="lang-dropdown" id="langDropdown">
+                    <a href="en.html" class="active">English</a>
+                    <a href="index.html">繁中（港）</a>
+                    <a href="tw.html">繁中（台）</a>
+                    <a href="ja.html">日本語</a>
+                    <a href="ko.html">한국어</a>
+                </div>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero" id="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <div class="hero-kanji">鮨一</div>
+            <div class="hero-name">Sushi Kazu</div>
+            <div class="hero-tagline">One chef. One counter. One unforgettable experience.</div>
+            <a href="#reservations" class="hero-cta">Reserve a Seat</a>
+            <div class="hero-note">Eight seats at the counter. By reservation only.</div>
+        </div>
+    </section>
+
+    <!-- Philosophy -->
+    <section class="philosophy" id="philosophy">
+        <div class="container">
+            <div class="philosophy-grid">
+                <div class="philosophy-image fade-in">
+                    <img src="https://images.unsplash.com/photo-1553621042-f6e147245754?w=800&q=80" alt="Chef Kazu preparing sushi at the counter" loading="lazy">
+                </div>
+                <div class="philosophy-text fade-in">
+                    <div class="section-label">Philosophy</div>
+                    <h2 class="section-title">Precision, Restraint, Respect</h2>
+                    <div class="divider"></div>
+                    <p>Chef Kazu spent fifteen years behind the counter in Tokyo, training under masters who believed that great sushi is not about complexity. It is about knowing when the fish is ready, how long to age it, and when to stop.</p>
+                    <p>At Sushi Kazu, every piece of nigiri reflects that discipline. Fish is sourced daily from Tokyo's Toyosu Market and New York's own Fulton Fish Market. What arrives each morning determines the menu that evening. There is no set list. There is only what is best today.</p>
+                    <p>The counter seats eight. Chef Kazu prepares each course directly in front of you, adjusting the pace and selection to the room. No rush. No performance. Just decades of skill applied quietly and consistently, one piece at a time.</p>
+                    <p>This is omakase as it was meant to be: a conversation between chef and guest, conducted through food.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu -->
+    <section class="menu" id="menu">
+        <div class="container-narrow">
+            <div class="menu-header fade-in">
+                <div class="section-label">Omakase</div>
+                <h2 class="section-title">The Menu</h2>
+                <div class="divider divider-center"></div>
+                <p>Each course is determined by the day's catch and the season's best ingredients. The following reflects our current offerings.</p>
+            </div>
+
+            <!-- Lunch -->
+            <div class="menu-category fade-in">
+                <h3 class="menu-category-title">Lunch Omakase</h3>
+                <div class="menu-category-sub">Tuesday – Sunday, 12:00 – 2:30 PM</div>
+
+                <div class="menu-item">
+                    <div class="menu-item-left">
+                        <div class="menu-item-name">Kazu Lunch</div>
+                        <div class="menu-item-desc">10 pieces nigiri, handroll, miso soup</div>
+                    </div>
+                    <div class="menu-item-price">$150</div>
+                </div>
+
+                <div class="menu-item">
+                    <div class="menu-item-left">
+                        <div class="menu-item-name">Premium Lunch</div>
+                        <div class="menu-item-desc">12 pieces nigiri, handroll, chawanmushi, miso soup</div>
+                    </div>
+                    <div class="menu-item-price">$220</div>
+                </div>
+            </div>
+
+            <!-- Dinner -->
+            <div class="menu-category fade-in">
+                <h3 class="menu-category-title">Dinner Omakase</h3>
+                <div class="menu-category-sub">Tuesday – Sunday, 6:00 – 10:00 PM</div>
+
+                <div class="menu-item">
+                    <div class="menu-item-left">
+                        <div class="menu-item-name">Kazu Dinner</div>
+                        <div class="menu-item-desc">15 pieces nigiri, appetizers, handroll, tamago, miso soup</div>
+                    </div>
+                    <div class="menu-item-price">$350</div>
+                </div>
+
+                <div class="menu-item">
+                    <div class="menu-item-left">
+                        <div class="menu-item-name">Chef's Special</div>
+                        <div class="menu-item-desc">18 pieces nigiri, 3 appetizers, handroll, tamago, dessert</div>
+                    </div>
+                    <div class="menu-item-price">$480</div>
+                </div>
+
+                <div class="menu-item">
+                    <div class="menu-item-left">
+                        <div class="menu-item-name">Ultimate Omakase</div>
+                        <div class="menu-item-desc">Seasonal, chef's full expression, approximately 20 courses</div>
+                    </div>
+                    <div class="menu-item-price">$680</div>
+                </div>
+            </div>
+
+            <!-- Add-ons -->
+            <div class="menu-category fade-in">
+                <h3 class="menu-category-title">Enhancements</h3>
+                <div class="menu-category-sub">Available with any omakase</div>
+
+                <div class="menu-addons">
+                    <div class="menu-item">
+                        <div class="menu-item-left">
+                            <div class="menu-item-name">Sake Pairing</div>
+                        </div>
+                        <div class="menu-item-price">$85</div>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="menu-item-left">
+                            <div class="menu-item-name">Premium Sake Pairing</div>
+                        </div>
+                        <div class="menu-item-price">$150</div>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="menu-item-left">
+                            <div class="menu-item-name">Uni Supplement</div>
+                        </div>
+                        <div class="menu-item-price">$55</div>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="menu-item-left">
+                            <div class="menu-item-name">Extra Toro</div>
+                        </div>
+                        <div class="menu-item-price">$40</div>
+                    </div>
+                </div>
+            </div>
+
+            <p class="menu-note">Prices are per person. Tax and gratuity not included. A 20% gratuity is added for parties of 4 or more.</p>
+        </div>
+    </section>
+
+    <!-- Reservations -->
+    <section class="reservations" id="reservations">
+        <div class="container">
+            <div class="reservations-content fade-in">
+                <div class="section-label">Reservations</div>
+                <h2 class="section-title">Join Us at the Counter</h2>
+                <div class="divider divider-center"></div>
+                <p>With only eight seats at the counter, we ask that all guests reserve in advance. We recommend booking one to two weeks ahead, especially for weekend seatings.</p>
+                <p style="margin-bottom: 40px;">Walk-ins are not available. Each seating is carefully timed to ensure an unhurried experience for every guest.</p>
+
+                <a href="#" class="btn-primary">Reserve via Resy</a>
+                <br>
+                <a href="tel:+12125478891" class="btn-secondary">or call +1 (212) 547-8891</a>
+
+                <div class="hours-grid">
+                    <div class="hours-block">
+                        <h4>Lunch</h4>
+                        <p>12:00 – 2:30 PM</p>
+                        <p>Last seating 1:30 PM</p>
+                    </div>
+                    <div class="hours-block">
+                        <h4>Dinner</h4>
+                        <p>6:00 – 10:00 PM</p>
+                        <p>Last seating 8:30 PM</p>
+                    </div>
+                </div>
+
+                <p class="res-note" style="margin-top: 24px;">Tuesday – Sunday&ensp;·&ensp;<span class="closed">Closed Monday</span></p>
+                <p class="res-note">We are unable to take calls during service. For the fastest response, book via Resy or leave a voicemail.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Private Dining -->
+    <section class="private-dining" id="private-dining">
+        <div class="container">
+            <div class="private-dining-inner">
+                <div class="private-dining-text fade-in">
+                    <div class="section-label">Private Dining</div>
+                    <h2 class="section-title">An Intimate Setting</h2>
+                    <div class="divider"></div>
+                    <p>Our private dining room accommodates up to four guests in a quiet, enclosed space adjacent to the main counter. Chef Kazu personally prepares the same seasonal omakase with the same level of care and attention.</p>
+                    <p>The room is well suited for celebrations, anniversaries, and business dinners where privacy and focus matter. The experience mirrors the counter but in complete seclusion.</p>
+                    <p>To arrange a private dining reservation, please contact us directly by phone or through Resy. We ask for at least 72 hours' advance notice.</p>
+                </div>
+                <div class="private-dining-details fade-in">
+                    <h3>Details</h3>
+                    <div class="detail-row">
+                        <span class="detail-label">Capacity</span>
+                        <span class="detail-value">Up to 4 guests</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Minimum spend</span>
+                        <span class="detail-value">$2,000</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Advance notice</span>
+                        <span class="detail-value">72 hours</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Menu</span>
+                        <span class="detail-value">Chef's selection</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Booking</span>
+                        <span class="detail-value"><a href="#">Resy</a> or phone</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq" id="faq">
+        <div class="container">
+            <div class="faq-header fade-in">
+                <div class="section-label">FAQ</div>
+                <h2 class="section-title">Common Questions</h2>
+                <div class="divider divider-center"></div>
+            </div>
+
+            <div class="faq-list">
+                <div class="faq-item fade-in">
+                    <button class="faq-question">
+                        How far in advance should I book?
+                        <span class="faq-icon"></span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">We recommend booking one to two weeks in advance. Weekend dinner seatings tend to fill quickly, so earlier is better. Weekday lunch reservations are sometimes available with shorter notice.</div>
+                    </div>
+                </div>
+
+                <div class="faq-item fade-in">
+                    <button class="faq-question">
+                        Can you accommodate allergies or dietary restrictions?
+                        <span class="faq-icon"></span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">Yes. Please let us know about any allergies or restrictions at the time of booking so Chef Kazu can plan accordingly. While we do our best to accommodate all requests, we cannot guarantee the complete absence of cross-contact in our kitchen.</div>
+                    </div>
+                </div>
+
+                <div class="faq-item fade-in">
+                    <button class="faq-question">
+                        Is there a dress code?
+                        <span class="faq-icon"></span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">We ask guests to dress in smart casual attire. We respectfully do not permit athletic wear, flip-flops, or hats inside the dining room.</div>
+                    </div>
+                </div>
+
+                <div class="faq-item fade-in">
+                    <button class="faq-question">
+                        Can I request specific fish or dishes?
+                        <span class="faq-icon"></span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">Chef Kazu selects each course based on what is freshest and most compelling that day. You are welcome to share preferences at the time of booking, and we will do our best to incorporate them, though specific requests cannot be guaranteed.</div>
+                    </div>
+                </div>
+
+                <div class="faq-item fade-in">
+                    <button class="faq-question">
+                        What is your cancellation policy?
+                        <span class="faq-icon"></span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">Cancellations made more than 24 hours before your reservation are fully refundable. Cancellations within 24 hours of your seating are subject to a $75 per person charge. We understand plans change, and we appreciate as much notice as possible.</div>
+                    </div>
+                </div>
+
+                <div class="faq-item fade-in">
+                    <button class="faq-question">
+                        Do you accommodate vegetarian diets or guests who do not eat raw fish?
+                        <span class="faq-icon"></span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">We can offer cooked alternatives for guests who prefer not to eat raw fish, and we are able to prepare a modified course for vegetarian diners. Please notify us at the time of booking. The experience will differ from the standard omakase, but Chef Kazu will ensure it is thoughtful and complete.</div>
+                    </div>
+                </div>
+
+                <div class="faq-item fade-in">
+                    <button class="faq-question">
+                        Is there a corkage fee?
+                        <span class="faq-icon"></span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">Yes. We charge a corkage fee of $60 per bottle, with a limit of two bottles per party. We kindly ask that selections not duplicate what is available on our beverage list.</div>
+                    </div>
+                </div>
+
+                <div class="faq-item fade-in">
+                    <button class="faq-question">
+                        Can I celebrate a birthday or special occasion?
+                        <span class="faq-icon"></span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">Of course. Let us know in advance and we will be happy to prepare a complimentary dessert plate. For more elaborate arrangements, please contact us directly.</div>
+                    </div>
+                </div>
+
+                <div class="faq-item fade-in">
+                    <button class="faq-question">
+                        Do you accept walk-ins?
+                        <span class="faq-icon"></span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">No. Due to our limited seating and the nature of the omakase format, all guests must have a reservation. We encourage booking through Resy for the most up-to-date availability.</div>
+                    </div>
+                </div>
+
+                <div class="faq-item fade-in">
+                    <button class="faq-question">
+                        What payment methods do you accept?
+                        <span class="faq-icon"></span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">We accept all major credit cards and Apple Pay. We are unable to accept cash.</div>
+                    </div>
+                </div>
+
+                <div class="faq-item fade-in">
+                    <button class="faq-question">
+                        What is your late arrival policy?
+                        <span class="faq-icon"></span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">We kindly ask guests to arrive on time. Arrivals more than 15 minutes past the reservation time will be treated as a cancellation and subject to the cancellation fee. This allows us to maintain the pacing and quality of the experience for all guests.</div>
+                    </div>
+                </div>
+
+                <div class="faq-item fade-in">
+                    <button class="faq-question">
+                        Can I bring my own cake?
+                        <span class="faq-icon"></span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">Yes, you are welcome to bring a cake for a special occasion. We charge a $30 plating fee. Please let us know at the time of booking so we can make the necessary arrangements.</div>
+                    </div>
+                </div>
+
+                <div class="faq-item fade-in">
+                    <button class="faq-question">
+                        Are children welcome?
+                        <span class="faq-icon"></span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">We recommend our experience for guests aged 12 and above. Children must be able to remain seated throughout the duration of the meal, which typically lasts between 90 minutes and two hours.</div>
+                    </div>
+                </div>
+
+                <div class="faq-item fade-in">
+                    <button class="faq-question">
+                        Is a deposit required?
+                        <span class="faq-icon"></span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">A deposit is required for parties of four or more, private dining reservations, and bookings on holidays or special event dates. The deposit will be applied toward your final bill. Details are provided at the time of booking.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Instagram -->
+    <section class="instagram" id="instagram">
+        <div class="container">
+            <div class="fade-in">
+                <div class="section-label">Follow Us</div>
+                <div class="instagram-title"><a href="https://instagram.com/sushikazu.nyc" target="_blank" rel="noopener">@sushikazu.nyc</a></div>
+            </div>
+            <div class="instagram-grid fade-in">
+                <div class="instagram-item">
+                    <img src="https://images.unsplash.com/photo-1579871494447-9811cf80d66c?w=400&q=80" alt="Sushi Kazu" loading="lazy">
+                </div>
+                <div class="instagram-item">
+                    <img src="https://images.unsplash.com/photo-1553621042-f6e147245754?w=400&q=80" alt="Sushi Kazu" loading="lazy">
+                </div>
+                <div class="instagram-item">
+                    <img src="https://images.unsplash.com/photo-1617196034796-73dfa7b1fd56?w=400&q=80" alt="Sushi Kazu" loading="lazy">
+                </div>
+                <div class="instagram-item">
+                    <img src="https://images.unsplash.com/photo-1611143669185-af224c5e3252?w=400&q=80" alt="Sushi Kazu" loading="lazy">
+                </div>
+                <div class="instagram-item">
+                    <img src="https://images.unsplash.com/photo-1540648639573-8c848de23f0a?w=400&q=80" alt="Sushi Kazu" loading="lazy">
+                </div>
+                <div class="instagram-item">
+                    <img src="https://images.unsplash.com/photo-1514190051997-0f6f39ca5cde?w=400&q=80" alt="Sushi Kazu" loading="lazy">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer" id="contact">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="footer-logo-kanji">鮨一</div>
+                    <div class="footer-logo-text">Sushi Kazu</div>
+                    <p>An intimate eight-seat omakase counter in Midtown Manhattan, led by Chef Kazu.</p>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Location</h4>
+                    <p>152 West 51st Street</p>
+                    <p>2nd Floor</p>
+                    <p>New York, NY 10019</p>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Hours</h4>
+                    <p>Tue – Sun</p>
+                    <p>Lunch 12:00 – 2:30 PM</p>
+                    <p>Dinner 6:00 – 10:00 PM</p>
+                    <p style="color: var(--gold-dim); font-style: italic; margin-top: 8px;">Closed Monday</p>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <a href="tel:+12125478891">+1 (212) 547-8891</a>
+                    <a href="https://instagram.com/sushikazu.nyc" target="_blank" rel="noopener">@sushikazu.nyc</a>
+                    <a href="#">Reserve on Resy</a>
+                </div>
+            </div>
+
+            <div class="footer-reserve">
+                <p>Experience omakase as it was meant to be.</p>
+                <a href="#reservations" class="btn-primary">Reserve a Seat</a>
+            </div>
+
+            <div class="footer-bottom">
+                <div class="footer-copyright">&copy; 2024 Sushi Kazu 鮨一. All rights reserved.</div>
+                <div class="footer-lang-links">
+                    <a href="en.html">English</a>
+                    <a href="index.html">繁中（港）</a>
+                    <a href="tw.html">繁中（台）</a>
+                    <a href="ja.html">日本語</a>
+                    <a href="ko.html">한국어</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Omago Chat Widget -->
+    <div id="omago-chat-widget"></div>
+
+    <script>
+        // ── Mobile Navigation ──
+        const hamburger = document.getElementById('navHamburger');
+        const navLinks = document.getElementById('navLinks');
+
+        hamburger.addEventListener('click', function () {
+            this.classList.toggle('active');
+            navLinks.classList.toggle('open');
+        });
+
+        // Close mobile nav on link click
+        navLinks.querySelectorAll('a[href^="#"]').forEach(function (link) {
+            link.addEventListener('click', function () {
+                hamburger.classList.remove('active');
+                navLinks.classList.remove('open');
+            });
+        });
+
+        // ── Language Switcher ──
+        const langToggle = document.getElementById('langToggle');
+        const langDropdown = document.getElementById('langDropdown');
+
+        langToggle.addEventListener('click', function (e) {
+            e.stopPropagation();
+            langDropdown.classList.toggle('open');
+        });
+
+        document.addEventListener('click', function (e) {
+            if (!langDropdown.contains(e.target) && e.target !== langToggle) {
+                langDropdown.classList.remove('open');
+            }
+        });
+
+        // ── FAQ Accordion ──
+        document.querySelectorAll('.faq-question').forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                var item = this.parentElement;
+                var answer = item.querySelector('.faq-answer');
+                var isActive = item.classList.contains('active');
+
+                // Close all
+                document.querySelectorAll('.faq-item').forEach(function (el) {
+                    el.classList.remove('active');
+                    el.querySelector('.faq-answer').style.maxHeight = null;
+                });
+
+                // Open clicked if not already open
+                if (!isActive) {
+                    item.classList.add('active');
+                    answer.style.maxHeight = answer.scrollHeight + 'px';
+                }
+            });
+        });
+
+        // ── Scroll Animations ──
+        var fadeEls = document.querySelectorAll('.fade-in');
+
+        var observer = new IntersectionObserver(function (entries) {
+            entries.forEach(function (entry) {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -40px 0px'
+        });
+
+        fadeEls.forEach(function (el) {
+            observer.observe(el);
+        });
+    </script>
+
+</body>
+</html>

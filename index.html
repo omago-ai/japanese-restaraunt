@@ -1,0 +1,1591 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>鮨一 Sushi Kazu — Omakase | 中環</title>
+<meta name="description" content="鮨一 Sushi Kazu — 中環頂級Omakase壽司體驗。僅設八席吧台座位，由一和師傅親手握製。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500&family=Noto+Sans+TC:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --bg: #0a0a0a;
+  --bg-card: #111111;
+  --bg-card-hover: #161616;
+  --cream: #f5f0e8;
+  --cream-dim: #c4bfb6;
+  --cream-faint: #8a857e;
+  --gold: #b8976a;
+  --gold-dim: #96795a;
+  --green-wa: #25d366;
+  --serif: 'Cormorant Garamond', 'Georgia', serif;
+  --sans: 'Inter', 'Noto Sans TC', -apple-system, sans-serif;
+  --sans-tc: 'Noto Sans TC', 'Inter', sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+  background: var(--bg);
+  color: var(--cream);
+  font-family: var(--sans-tc);
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background: var(--bg);
+  overflow-x: hidden;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+/* ═══════════════════════════════════════
+   NAVIGATION
+   ═══════════════════════════════════════ */
+
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  padding: 0 clamp(24px, 4vw, 60px);
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(10, 10, 10, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(245, 240, 232, 0.04);
+  transition: background 0.4s;
+}
+
+.nav-logo {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.nav-logo-jp {
+  font-family: var(--serif);
+  font-size: 1.6rem;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  color: var(--cream);
+}
+
+.nav-logo-en {
+  font-family: var(--sans);
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--cream-dim);
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: clamp(16px, 2.5vw, 36px);
+  list-style: none;
+}
+
+.nav-links a {
+  font-size: 0.8rem;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  color: var(--cream-dim);
+  transition: color 0.3s;
+  position: relative;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--gold);
+  transition: width 0.3s;
+}
+
+.nav-links a:hover {
+  color: var(--cream);
+}
+
+.nav-links a:hover::after {
+  width: 100%;
+}
+
+/* Language Switcher */
+.lang-switcher {
+  position: relative;
+  margin-left: 8px;
+}
+
+.lang-current {
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  color: var(--cream-dim);
+  cursor: pointer;
+  padding: 6px 12px;
+  border: 1px solid rgba(245, 240, 232, 0.12);
+  border-radius: 3px;
+  transition: border-color 0.3s, color 0.3s;
+  user-select: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  font-family: var(--sans-tc);
+}
+
+.lang-current:hover {
+  border-color: rgba(245, 240, 232, 0.3);
+  color: var(--cream);
+}
+
+.lang-arrow {
+  font-size: 0.55rem;
+  transition: transform 0.3s;
+}
+
+.lang-switcher.open .lang-arrow {
+  transform: rotate(180deg);
+}
+
+.lang-dropdown {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  background: #1a1a1a;
+  border: 1px solid rgba(245, 240, 232, 0.08);
+  border-radius: 4px;
+  min-width: 140px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-6px);
+  transition: opacity 0.25s, transform 0.25s, visibility 0.25s;
+  overflow: hidden;
+}
+
+.lang-switcher.open .lang-dropdown {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.lang-dropdown a {
+  display: block;
+  padding: 10px 16px;
+  font-size: 0.78rem;
+  color: var(--cream-dim);
+  transition: background 0.2s, color 0.2s;
+  letter-spacing: 0.04em;
+}
+
+.lang-dropdown a:hover {
+  background: rgba(184, 151, 106, 0.08);
+  color: var(--cream);
+}
+
+.lang-dropdown a.active {
+  color: var(--gold);
+  pointer-events: none;
+}
+
+/* Mobile nav */
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  padding: 4px;
+  background: none;
+  border: none;
+}
+
+.nav-toggle span {
+  display: block;
+  width: 22px;
+  height: 1.5px;
+  background: var(--cream-dim);
+  transition: transform 0.3s, opacity 0.3s;
+}
+
+.nav-toggle.open span:nth-child(1) {
+  transform: rotate(45deg) translateY(4.6px);
+}
+.nav-toggle.open span:nth-child(2) {
+  opacity: 0;
+}
+.nav-toggle.open span:nth-child(3) {
+  transform: rotate(-45deg) translateY(-4.6px);
+}
+
+@media (max-width: 860px) {
+  .nav-toggle {
+    display: flex;
+  }
+  .nav-links {
+    position: fixed;
+    top: 72px;
+    left: 0;
+    width: 100%;
+    flex-direction: column;
+    background: rgba(10, 10, 10, 0.97);
+    backdrop-filter: blur(20px);
+    padding: 32px 24px 40px;
+    gap: 20px;
+    transform: translateY(-120%);
+    transition: transform 0.4s ease;
+    border-bottom: 1px solid rgba(245, 240, 232, 0.04);
+  }
+  .nav-links.open {
+    transform: translateY(0);
+  }
+  .nav-links a {
+    font-size: 0.9rem;
+  }
+  .lang-switcher {
+    margin-left: 0;
+  }
+}
+
+/* ═══════════════════════════════════════
+   HERO
+   ═══════════════════════════════════════ */
+
+.hero {
+  position: relative;
+  height: 100vh;
+  min-height: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.hero-bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 40%;
+  filter: brightness(0.35) saturate(0.7);
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(10, 10, 10, 0.4) 0%,
+    rgba(10, 10, 10, 0.15) 40%,
+    rgba(10, 10, 10, 0.5) 75%,
+    rgba(10, 10, 10, 0.95) 100%
+  );
+  z-index: 1;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  padding: 0 24px;
+}
+
+.hero-title {
+  font-family: var(--serif);
+  font-size: clamp(4rem, 12vw, 9rem);
+  font-weight: 300;
+  letter-spacing: 0.15em;
+  line-height: 1.1;
+  color: var(--cream);
+  margin-bottom: 16px;
+}
+
+.hero-subtitle {
+  font-family: var(--sans);
+  font-size: 0.7rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--cream-dim);
+  margin-bottom: 40px;
+}
+
+.hero-tagline {
+  font-family: var(--sans-tc);
+  font-size: clamp(0.9rem, 2vw, 1.1rem);
+  font-weight: 300;
+  color: var(--cream-dim);
+  letter-spacing: 0.12em;
+  margin-bottom: 48px;
+}
+
+.hero-cta {
+  display: inline-block;
+  padding: 14px 40px;
+  border: 1px solid rgba(184, 151, 106, 0.5);
+  color: var(--gold);
+  font-size: 0.82rem;
+  letter-spacing: 0.15em;
+  transition: all 0.4s;
+  font-family: var(--sans-tc);
+}
+
+.hero-cta:hover {
+  background: rgba(184, 151, 106, 0.1);
+  border-color: var(--gold);
+}
+
+.hero-seats {
+  margin-top: 24px;
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  color: var(--cream-faint);
+}
+
+/* ═══════════════════════════════════════
+   SECTION UTILITIES
+   ═══════════════════════════════════════ */
+
+.section {
+  padding: clamp(80px, 10vw, 140px) clamp(24px, 6vw, 120px);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.section-wide {
+  padding: clamp(80px, 10vw, 140px) clamp(24px, 4vw, 60px);
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.section-label {
+  font-size: 0.65rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 12px;
+  font-family: var(--sans);
+}
+
+.section-title {
+  font-family: var(--serif);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 300;
+  letter-spacing: 0.06em;
+  color: var(--cream);
+  margin-bottom: 20px;
+  line-height: 1.2;
+}
+
+.section-divider {
+  width: 40px;
+  height: 1px;
+  background: var(--gold-dim);
+  margin-bottom: 40px;
+}
+
+.section-border {
+  border-top: 1px solid rgba(245, 240, 232, 0.06);
+}
+
+/* ═══════════════════════════════════════
+   PHILOSOPHY
+   ═══════════════════════════════════════ */
+
+.philosophy {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(40px, 6vw, 100px);
+  align-items: center;
+}
+
+.philosophy-text p {
+  font-size: 0.95rem;
+  color: var(--cream-dim);
+  margin-bottom: 20px;
+  line-height: 1.9;
+}
+
+.philosophy-img {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 3/4;
+}
+
+.philosophy-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.75) saturate(0.8);
+  transition: transform 6s ease;
+}
+
+.philosophy-img:hover img {
+  transform: scale(1.04);
+}
+
+.philosophy-img::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgba(184, 151, 106, 0.12);
+  pointer-events: none;
+}
+
+@media (max-width: 768px) {
+  .philosophy {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .philosophy-img {
+    order: -1;
+    aspect-ratio: 4/3;
+  }
+}
+
+/* ═══════════════════════════════════════
+   MENU
+   ═══════════════════════════════════════ */
+
+.menu-group {
+  margin-bottom: 56px;
+}
+
+.menu-group:last-child {
+  margin-bottom: 0;
+}
+
+.menu-group-title {
+  font-family: var(--serif);
+  font-size: 1.3rem;
+  font-weight: 400;
+  color: var(--cream);
+  letter-spacing: 0.08em;
+  margin-bottom: 6px;
+}
+
+.menu-group-sub {
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--cream-faint);
+  margin-bottom: 28px;
+  font-family: var(--sans);
+}
+
+.menu-item {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 16px;
+  align-items: baseline;
+  padding: 20px 0;
+  border-bottom: 1px solid rgba(245, 240, 232, 0.05);
+}
+
+.menu-item:first-of-type {
+  border-top: 1px solid rgba(245, 240, 232, 0.05);
+}
+
+.menu-item-num {
+  font-family: var(--serif);
+  font-size: 0.85rem;
+  color: var(--gold-dim);
+  font-style: italic;
+}
+
+.menu-item-info {
+  min-width: 0;
+}
+
+.menu-item-name {
+  font-family: var(--sans-tc);
+  font-size: 0.95rem;
+  font-weight: 400;
+  color: var(--cream);
+  margin-bottom: 4px;
+}
+
+.menu-item-desc {
+  font-size: 0.8rem;
+  color: var(--cream-faint);
+  letter-spacing: 0.02em;
+}
+
+.menu-item-price {
+  font-family: var(--sans);
+  font-size: 0.9rem;
+  color: var(--gold);
+  white-space: nowrap;
+  font-weight: 400;
+}
+
+.menu-addons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px 32px;
+  margin-top: 8px;
+}
+
+.menu-addon {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(245, 240, 232, 0.04);
+  font-size: 0.85rem;
+}
+
+.menu-addon-name {
+  color: var(--cream-dim);
+}
+
+.menu-addon-price {
+  color: var(--gold-dim);
+  font-family: var(--sans);
+}
+
+@media (max-width: 600px) {
+  .menu-addons {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ═══════════════════════════════════════
+   RESERVATION
+   ═══════════════════════════════════════ */
+
+.reservation-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(40px, 6vw, 80px);
+  align-items: start;
+}
+
+.reservation-info p {
+  font-size: 0.9rem;
+  color: var(--cream-dim);
+  margin-bottom: 16px;
+  line-height: 1.8;
+}
+
+.reservation-detail {
+  margin-top: 32px;
+}
+
+.reservation-detail-row {
+  display: flex;
+  gap: 16px;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(245, 240, 232, 0.05);
+  font-size: 0.85rem;
+}
+
+.reservation-detail-label {
+  color: var(--cream-faint);
+  min-width: 80px;
+  flex-shrink: 0;
+}
+
+.reservation-detail-value {
+  color: var(--cream-dim);
+}
+
+.reservation-note {
+  margin-top: 28px;
+  padding: 20px 24px;
+  background: rgba(184, 151, 106, 0.04);
+  border-left: 2px solid var(--gold-dim);
+  font-size: 0.82rem;
+  color: var(--cream-faint);
+  line-height: 1.7;
+}
+
+.reservation-cta-area {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  padding-top: 20px;
+}
+
+.btn-whatsapp {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 36px;
+  background: var(--green-wa);
+  color: #fff;
+  font-size: 0.88rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  border-radius: 4px;
+  transition: background 0.3s, transform 0.2s;
+  font-family: var(--sans-tc);
+}
+
+.btn-whatsapp:hover {
+  background: #20bd5a;
+  transform: translateY(-1px);
+}
+
+.btn-whatsapp svg {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+}
+
+.reservation-phone {
+  font-size: 0.82rem;
+  color: var(--cream-faint);
+}
+
+.reservation-phone a {
+  color: var(--cream-dim);
+  border-bottom: 1px solid rgba(245, 240, 232, 0.15);
+  transition: color 0.3s, border-color 0.3s;
+}
+
+.reservation-phone a:hover {
+  color: var(--cream);
+  border-color: var(--cream-dim);
+}
+
+@media (max-width: 768px) {
+  .reservation-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ═══════════════════════════════════════
+   PRIVATE DINING
+   ═══════════════════════════════════════ */
+
+.private-dining-content {
+  max-width: 640px;
+}
+
+.private-dining-content p {
+  font-size: 0.9rem;
+  color: var(--cream-dim);
+  margin-bottom: 16px;
+  line-height: 1.8;
+}
+
+.private-features {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 32px;
+}
+
+.private-feature {
+  padding: 20px 24px;
+  background: var(--bg-card);
+  border: 1px solid rgba(245, 240, 232, 0.04);
+}
+
+.private-feature-label {
+  font-size: 0.68rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--cream-faint);
+  margin-bottom: 6px;
+  font-family: var(--sans);
+}
+
+.private-feature-value {
+  font-family: var(--serif);
+  font-size: 1.2rem;
+  color: var(--cream);
+  font-weight: 400;
+}
+
+@media (max-width: 600px) {
+  .private-features {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ═══════════════════════════════════════
+   FAQ
+   ═══════════════════════════════════════ */
+
+.faq-list {
+  max-width: 780px;
+}
+
+.faq-item {
+  border-bottom: 1px solid rgba(245, 240, 232, 0.06);
+}
+
+.faq-question {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 22px 0;
+  background: none;
+  border: none;
+  color: var(--cream);
+  font-size: 0.9rem;
+  font-family: var(--sans-tc);
+  font-weight: 400;
+  text-align: left;
+  cursor: pointer;
+  letter-spacing: 0.02em;
+  transition: color 0.3s;
+  line-height: 1.5;
+}
+
+.faq-question:hover {
+  color: var(--gold);
+}
+
+.faq-icon {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  margin-left: 16px;
+  position: relative;
+}
+
+.faq-icon::before,
+.faq-icon::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  background: var(--cream-faint);
+  transition: transform 0.3s;
+}
+
+.faq-icon::before {
+  width: 12px;
+  height: 1px;
+  transform: translate(-50%, -50%);
+}
+
+.faq-icon::after {
+  width: 1px;
+  height: 12px;
+  transform: translate(-50%, -50%);
+}
+
+.faq-item.open .faq-icon::after {
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease, padding 0.3s ease;
+}
+
+.faq-answer-inner {
+  padding: 0 0 22px;
+  font-size: 0.85rem;
+  color: var(--cream-faint);
+  line-height: 1.8;
+}
+
+/* ═══════════════════════════════════════
+   INSTAGRAM GRID
+   ═══════════════════════════════════════ */
+
+.ig-section {
+  padding: clamp(80px, 10vw, 140px) 0;
+  border-top: 1px solid rgba(245, 240, 232, 0.06);
+}
+
+.ig-header {
+  text-align: center;
+  margin-bottom: 40px;
+  padding: 0 24px;
+}
+
+.ig-handle {
+  font-family: var(--sans);
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  color: var(--cream-dim);
+}
+
+.ig-handle a {
+  color: var(--cream-dim);
+  transition: color 0.3s;
+}
+
+.ig-handle a:hover {
+  color: var(--gold);
+}
+
+.ig-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 3px;
+}
+
+.ig-grid a {
+  display: block;
+  aspect-ratio: 1;
+  overflow: hidden;
+  position: relative;
+}
+
+.ig-grid a::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 10, 10, 0);
+  transition: background 0.3s;
+}
+
+.ig-grid a:hover::after {
+  background: rgba(10, 10, 10, 0.3);
+}
+
+.ig-grid img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 4s ease;
+}
+
+.ig-grid a:hover img {
+  transform: scale(1.06);
+}
+
+@media (max-width: 600px) {
+  .ig-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* ═══════════════════════════════════════
+   FOOTER
+   ═══════════════════════════════════════ */
+
+.footer {
+  border-top: 1px solid rgba(245, 240, 232, 0.06);
+  padding: clamp(60px, 8vw, 100px) clamp(24px, 6vw, 120px) 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 1fr;
+  gap: 40px;
+  margin-bottom: 60px;
+}
+
+.footer-brand .nav-logo {
+  margin-bottom: 20px;
+}
+
+.footer-brand p {
+  font-size: 0.82rem;
+  color: var(--cream-faint);
+  line-height: 1.7;
+  max-width: 260px;
+}
+
+.footer-col-title {
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--cream-faint);
+  margin-bottom: 16px;
+  font-family: var(--sans);
+}
+
+.footer-col a, .footer-col p {
+  display: block;
+  font-size: 0.82rem;
+  color: var(--cream-dim);
+  margin-bottom: 8px;
+  transition: color 0.3s;
+}
+
+.footer-col a:hover {
+  color: var(--cream);
+}
+
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 30px;
+  border-top: 1px solid rgba(245, 240, 232, 0.04);
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.footer-copy {
+  font-size: 0.72rem;
+  color: var(--cream-faint);
+  letter-spacing: 0.05em;
+}
+
+.footer-langs {
+  display: flex;
+  gap: 20px;
+}
+
+.footer-langs a {
+  font-size: 0.72rem;
+  color: var(--cream-faint);
+  transition: color 0.3s;
+}
+
+.footer-langs a:hover {
+  color: var(--cream-dim);
+}
+
+.footer-langs a.active {
+  color: var(--gold);
+}
+
+@media (max-width: 768px) {
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ═══════════════════════════════════════
+   CHAT WIDGET PLACEHOLDER
+   ═══════════════════════════════════════ */
+
+#omago-chat-widget {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 9999;
+}
+
+/* ═══════════════════════════════════════
+   ANIMATIONS
+   ═══════════════════════════════════════ */
+
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════
+     NAVIGATION
+     ═══════════════════════════════════════ -->
+
+<nav class="nav" id="nav">
+  <a href="#" class="nav-logo">
+    <span class="nav-logo-jp">鮨一</span>
+    <span class="nav-logo-en">Sushi Kazu</span>
+  </a>
+
+  <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+    <span></span><span></span><span></span>
+  </button>
+
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#philosophy">理念</a></li>
+    <li><a href="#menu">菜單</a></li>
+    <li><a href="#reservation">預約</a></li>
+    <li><a href="#private">包廂</a></li>
+    <li><a href="#faq">常見問題</a></li>
+    <li><a href="#contact">聯絡</a></li>
+    <li>
+      <div class="lang-switcher" id="langSwitcher">
+        <button class="lang-current" id="langBtn">繁中（港）<span class="lang-arrow">&#9662;</span></button>
+        <div class="lang-dropdown">
+          <a href="#" class="active">繁中（港）</a>
+          <a href="tw.html">繁中（台）</a>
+          <a href="en.html">English</a>
+          <a href="ja.html">日本語</a>
+          <a href="ko.html">한국어</a>
+        </div>
+      </div>
+    </li>
+  </ul>
+</nav>
+
+<!-- ═══════════════════════════════════════
+     HERO
+     ═══════════════════════════════════════ -->
+
+<section class="hero" id="hero">
+  <div class="hero-bg">
+    <img src="https://images.unsplash.com/photo-1579871494447-9811cf80d66c?w=1400&q=80" alt="Omakase壽司" loading="eager">
+  </div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-subtitle">Sushi Kazu</div>
+    <h1 class="hero-title">鮨一</h1>
+    <p class="hero-tagline">一位師傅。一個吧台。一場難忘體驗。</p>
+    <a href="#reservation" class="hero-cta">預約座位</a>
+    <p class="hero-seats">僅設八席吧台座位</p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     PHILOSOPHY
+     ═══════════════════════════════════════ -->
+
+<section class="section section-border" id="philosophy">
+  <div class="philosophy fade-in">
+    <div class="philosophy-text">
+      <p class="section-label">理念</p>
+      <h2 class="section-title">一貫入魂</h2>
+      <div class="section-divider"></div>
+      <p>一和師傅在東京修業十五年，師承江戶前壽司的嚴格傳統。每一貫壽司的背後，是對食材的深刻理解，對技藝的日復一日磨練，以及對時令節氣的尊重。</p>
+      <p>魚獲來自東京豐洲市場與香港本地漁市的精選食材，每日清晨由師傅親自挑選。我們不追求華麗的擺盤，而是讓食材本身說話——用最少的調味，呈現最純粹的味道。</p>
+      <p>鮨一只設八席吧台座位，師傅在你面前握製每一貫壽司，節奏從容，不急不徐。這不是一頓飯，而是一段安靜而專注的時間。</p>
+    </div>
+    <div class="philosophy-img">
+      <img src="https://images.unsplash.com/photo-1553621042-f6e147245754?w=800&q=80" alt="師傅製作壽司" loading="lazy">
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     MENU
+     ═══════════════════════════════════════ -->
+
+<section class="section section-border" id="menu">
+  <div class="fade-in">
+    <p class="section-label">菜單</p>
+    <h2 class="section-title">Omakase</h2>
+    <div class="section-divider"></div>
+
+    <!-- Lunch -->
+    <div class="menu-group">
+      <h3 class="menu-group-title">午市</h3>
+      <p class="menu-group-sub">Lunch Omakase</p>
+
+      <div class="menu-item">
+        <span class="menu-item-num">一</span>
+        <div class="menu-item-info">
+          <div class="menu-item-name">Kazu Lunch</div>
+          <div class="menu-item-desc">10貫握壽司 + 手卷 + 味噌湯</div>
+        </div>
+        <span class="menu-item-price">HK$980</span>
+      </div>
+
+      <div class="menu-item">
+        <span class="menu-item-num">二</span>
+        <div class="menu-item-info">
+          <div class="menu-item-name">Premium Lunch</div>
+          <div class="menu-item-desc">12貫握壽司 + 手卷 + 茶碗蒸 + 味噌湯</div>
+        </div>
+        <span class="menu-item-price">HK$1,480</span>
+      </div>
+    </div>
+
+    <!-- Dinner -->
+    <div class="menu-group">
+      <h3 class="menu-group-title">晚市</h3>
+      <p class="menu-group-sub">Dinner Omakase</p>
+
+      <div class="menu-item">
+        <span class="menu-item-num">三</span>
+        <div class="menu-item-info">
+          <div class="menu-item-name">Kazu Dinner</div>
+          <div class="menu-item-desc">15貫握壽司 + 前菜 + 手卷 + 玉子燒 + 味噌湯</div>
+        </div>
+        <span class="menu-item-price">HK$2,280</span>
+      </div>
+
+      <div class="menu-item">
+        <span class="menu-item-num">四</span>
+        <div class="menu-item-info">
+          <div class="menu-item-name">Chef's Special</div>
+          <div class="menu-item-desc">18貫握壽司 + 3道前菜 + 手卷 + 玉子燒 + 甜品</div>
+        </div>
+        <span class="menu-item-price">HK$3,280</span>
+      </div>
+
+      <div class="menu-item">
+        <span class="menu-item-num">五</span>
+        <div class="menu-item-info">
+          <div class="menu-item-name">Ultimate Omakase</div>
+          <div class="menu-item-desc">時令發辦，約20道菜</div>
+        </div>
+        <span class="menu-item-price">HK$4,800</span>
+      </div>
+    </div>
+
+    <!-- Add-ons -->
+    <div class="menu-group">
+      <h3 class="menu-group-title">追加</h3>
+      <p class="menu-group-sub">Add-ons</p>
+      <div class="menu-addons">
+        <div class="menu-addon">
+          <span class="menu-addon-name">清酒配對</span>
+          <span class="menu-addon-price">HK$580</span>
+        </div>
+        <div class="menu-addon">
+          <span class="menu-addon-name">特選清酒配對</span>
+          <span class="menu-addon-price">HK$980</span>
+        </div>
+        <div class="menu-addon">
+          <span class="menu-addon-name">海膽追加</span>
+          <span class="menu-addon-price">HK$380</span>
+        </div>
+        <div class="menu-addon">
+          <span class="menu-addon-name">拖羅追加</span>
+          <span class="menu-addon-price">HK$280</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     RESERVATION
+     ═══════════════════════════════════════ -->
+
+<section class="section section-border" id="reservation">
+  <div class="fade-in">
+    <p class="section-label">預約</p>
+    <h2 class="section-title">預約座位</h2>
+    <div class="section-divider"></div>
+
+    <div class="reservation-grid">
+      <div class="reservation-info">
+        <p>鮨一僅設八席吧台座位，所有座位均需預約。我們建議提前一至兩星期預約，週末及公眾假期請盡早安排。</p>
+        <p>請透過WhatsApp預約，告知用餐人數、希望日期及時段，以及任何食物過敏或特殊要求。我們會於營業時間內盡快確認。</p>
+
+        <div class="reservation-detail">
+          <div class="reservation-detail-row">
+            <span class="reservation-detail-label">午市</span>
+            <span class="reservation-detail-value">12:00 – 14:30（最後入座 13:30）</span>
+          </div>
+          <div class="reservation-detail-row">
+            <span class="reservation-detail-label">晚市</span>
+            <span class="reservation-detail-value">18:00 – 22:00（最後入座 20:30）</span>
+          </div>
+          <div class="reservation-detail-row">
+            <span class="reservation-detail-label">休息日</span>
+            <span class="reservation-detail-value">逢星期二</span>
+          </div>
+        </div>
+
+        <div class="reservation-note">
+          服務時段期間回覆或有延遲，建議提早預約。取消請於24小時前通知，24小時內取消將收取每位HK$500。
+        </div>
+      </div>
+
+      <div class="reservation-cta-area">
+        <a href="https://wa.me/85291873346" target="_blank" rel="noopener" class="btn-whatsapp">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          WhatsApp 預約
+        </a>
+        <p class="reservation-phone">或致電 <a href="tel:+85225418893">+852 2541 8893</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     PRIVATE DINING
+     ═══════════════════════════════════════ -->
+
+<section class="section section-border" id="private">
+  <div class="fade-in">
+    <p class="section-label">包廂</p>
+    <h2 class="section-title">私人用餐</h2>
+    <div class="section-divider"></div>
+
+    <div class="private-dining-content">
+      <p>鮨一另設獨立包廂，最多可容納四位賓客。空間私密寧靜，適合生日慶祝、紀念日、商務宴請或任何需要專屬氛圍的場合。</p>
+      <p>包廂菜單由一和師傅根據當日食材特別編排，用餐體驗與吧台同樣細緻。如有特別要求，歡迎於預約時告知。</p>
+
+      <div class="private-features">
+        <div class="private-feature">
+          <div class="private-feature-label">座位</div>
+          <div class="private-feature-value">最多4位</div>
+        </div>
+        <div class="private-feature">
+          <div class="private-feature-label">最低消費</div>
+          <div class="private-feature-value">HK$15,000</div>
+        </div>
+        <div class="private-feature">
+          <div class="private-feature-label">預約須知</div>
+          <div class="private-feature-value">提前3天</div>
+        </div>
+        <div class="private-feature">
+          <div class="private-feature-label">預約方式</div>
+          <div class="private-feature-value">WhatsApp</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     FAQ
+     ═══════════════════════════════════════ -->
+
+<section class="section section-border" id="faq">
+  <div class="fade-in">
+    <p class="section-label">常見問題</p>
+    <h2 class="section-title">FAQ</h2>
+    <div class="section-divider"></div>
+
+    <div class="faq-list">
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          需要提前多久預約？
+          <span class="faq-icon"></span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">建議提前一至兩星期預約。週末及公眾假期座位較為緊張，建議更早安排。如有臨時需要，歡迎透過WhatsApp查詢當日是否有空位。</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          可以處理食物過敏嗎？
+          <span class="faq-icon"></span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">可以，請在預約時詳細告知過敏情況，師傅會盡量調整菜單。但由於廚房空間有限，我們無法保證完全杜絕交叉接觸的風險，敬請理解。</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          有dress code嗎？
+          <span class="faq-icon"></span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">我們建議smart casual着裝。為維持用餐環境的舒適氛圍，請避免穿着拖鞋及運動服裝。</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          可以指定特定魚種嗎？
+          <span class="faq-icon"></span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">Omakase的精髓在於「信任師傅」。一和師傅會根據當日最佳食材決定菜單內容。如有特別偏好或希望品嘗的食材，歡迎預約時告知，師傅會在可能的範圍內配合。</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          取消政策是什麼？
+          <span class="faq-icon"></span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">24小時前取消不收取任何費用。24小時內取消或未到（no-show）將收取每位HK$500。如遇颱風或惡劣天氣，另行通知。</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          可以素食或不吃生魚嗎？
+          <span class="faq-icon"></span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">我們可以提供煮食或非生魚的替代方案，但Omakase的體驗可能會受到一定影響。如有此需求，請務必在預約時告知，讓師傅提前準備合適的菜單。</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          可以帶酒嗎？
+          <span class="faq-icon"></span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">可以，我們歡迎自帶酒水。開瓶費為每支HK$400。我們亦提供精選清酒及日本威士忌供選擇。</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          可以慶祝生日嗎？
+          <span class="faq-icon"></span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">當然可以。請預約時告知，我們可以安排特別甜品作為慶祝。如需其他安排，歡迎提前溝通。</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          接受walk-in嗎？
+          <span class="faq-icon"></span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">不接受。鮨一僅限預約，所有座位需提前透過WhatsApp或電話預訂。</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          接受什麼付款方式？
+          <span class="faq-icon"></span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">我們接受現金、Visa、Mastercard、American Express及Apple Pay。暫不支援其他電子支付方式。</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          遲到政策是什麼？
+          <span class="faq-icon"></span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">遲到超過15分鐘將視為取消，並收取取消費用。由於吧台座位有限，遲到會影響整體用餐節奏，敬請準時到達。</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          可以帶蛋糕嗎？
+          <span class="faq-icon"></span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">可以，歡迎自帶蛋糕慶祝。切餅費為HK$200，我們會協助擺盤及提供餐具。</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          接受小朋友嗎？
+          <span class="faq-icon"></span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">我們建議12歲或以上的賓客前來用餐。由於Omakase用餐時間較長，小朋友需能安靜用餐，以免影響其他賓客的體驗。</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          需要付訂金嗎？
+          <span class="faq-icon"></span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">四位或以上的預約、包廂預約，以及特別節日（如聖誕節、情人節、新年等）的預約需要繳付訂金。具體金額將在確認預約時通知。</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     INSTAGRAM
+     ═══════════════════════════════════════ -->
+
+<section class="ig-section">
+  <div class="ig-header fade-in">
+    <p class="ig-handle"><a href="https://instagram.com/sushikazu.hk" target="_blank" rel="noopener">@sushikazu.hk</a></p>
+  </div>
+  <div class="ig-grid">
+    <a href="https://instagram.com/sushikazu.hk" target="_blank" rel="noopener">
+      <img src="https://images.unsplash.com/photo-1579871494447-9811cf80d66c?w=400&q=80" alt="鮨一" loading="lazy">
+    </a>
+    <a href="https://instagram.com/sushikazu.hk" target="_blank" rel="noopener">
+      <img src="https://images.unsplash.com/photo-1553621042-f6e147245754?w=400&q=80" alt="鮨一" loading="lazy">
+    </a>
+    <a href="https://instagram.com/sushikazu.hk" target="_blank" rel="noopener">
+      <img src="https://images.unsplash.com/photo-1617196034796-73dfa7b1fd56?w=400&q=80" alt="鮨一" loading="lazy">
+    </a>
+    <a href="https://instagram.com/sushikazu.hk" target="_blank" rel="noopener">
+      <img src="https://images.unsplash.com/photo-1611143669185-af224c5e3252?w=400&q=80" alt="鮨一" loading="lazy">
+    </a>
+    <a href="https://instagram.com/sushikazu.hk" target="_blank" rel="noopener">
+      <img src="https://images.unsplash.com/photo-1540648639573-8c848de23f0a?w=400&q=80" alt="鮨一" loading="lazy">
+    </a>
+    <a href="https://instagram.com/sushikazu.hk" target="_blank" rel="noopener">
+      <img src="https://images.unsplash.com/photo-1514190051997-0f6f39ca5cde?w=400&q=80" alt="鮨一" loading="lazy">
+    </a>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     FOOTER
+     ═══════════════════════════════════════ -->
+
+<footer class="footer" id="contact">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="nav-logo">
+        <span class="nav-logo-jp">鮨一</span>
+        <span class="nav-logo-en">Sushi Kazu</span>
+      </div>
+      <p>中環頂級Omakase壽司體驗。僅設八席吧台座位，由一和師傅親手握製。</p>
+    </div>
+
+    <div class="footer-col">
+      <p class="footer-col-title">地址</p>
+      <p>中環威靈頓街18號</p>
+      <p>The Wellington 3樓</p>
+      <p>香港</p>
+    </div>
+
+    <div class="footer-col">
+      <p class="footer-col-title">營業時間</p>
+      <p>午市 12:00 – 14:30</p>
+      <p>晚市 18:00 – 22:00</p>
+      <p>逢星期二休息</p>
+    </div>
+
+    <div class="footer-col">
+      <p class="footer-col-title">聯絡</p>
+      <a href="https://wa.me/85291873346" target="_blank" rel="noopener">WhatsApp</a>
+      <a href="tel:+85225418893">+852 2541 8893</a>
+      <a href="https://instagram.com/sushikazu.hk" target="_blank" rel="noopener">@sushikazu.hk</a>
+      <a href="#reservation" style="color: var(--gold); margin-top: 8px; display: inline-block;">預約座位 &rarr;</a>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p class="footer-copy">&copy; 2024 Sushi Kazu 鮨一. All rights reserved.</p>
+    <div class="footer-langs">
+      <a href="#" class="active">繁中（港）</a>
+      <a href="tw.html">繁中（台）</a>
+      <a href="en.html">English</a>
+      <a href="ja.html">日本語</a>
+      <a href="ko.html">한국어</a>
+    </div>
+  </div>
+</footer>
+
+<!-- Chat Widget Placeholder -->
+<div id="omago-chat-widget"></div>
+
+<!-- ═══════════════════════════════════════
+     JAVASCRIPT
+     ═══════════════════════════════════════ -->
+
+<script>
+(function() {
+  'use strict';
+
+  // ── Mobile Nav Toggle ──
+  const navToggle = document.getElementById('navToggle');
+  const navLinks = document.getElementById('navLinks');
+
+  navToggle.addEventListener('click', function() {
+    navToggle.classList.toggle('open');
+    navLinks.classList.toggle('open');
+  });
+
+  // Close mobile nav on link click
+  navLinks.querySelectorAll('a[href^="#"]').forEach(function(link) {
+    link.addEventListener('click', function() {
+      navToggle.classList.remove('open');
+      navLinks.classList.remove('open');
+    });
+  });
+
+  // ── Language Switcher ──
+  const langSwitcher = document.getElementById('langSwitcher');
+  const langBtn = document.getElementById('langBtn');
+
+  langBtn.addEventListener('click', function(e) {
+    e.stopPropagation();
+    langSwitcher.classList.toggle('open');
+  });
+
+  document.addEventListener('click', function(e) {
+    if (!langSwitcher.contains(e.target)) {
+      langSwitcher.classList.remove('open');
+    }
+  });
+
+  // ── FAQ Accordion ──
+  document.querySelectorAll('.faq-question').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var item = this.parentElement;
+      var answer = item.querySelector('.faq-answer');
+      var isOpen = item.classList.contains('open');
+
+      // Close all
+      document.querySelectorAll('.faq-item').forEach(function(faqItem) {
+        faqItem.classList.remove('open');
+        faqItem.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+        faqItem.querySelector('.faq-answer').style.maxHeight = null;
+      });
+
+      // Open clicked if it was closed
+      if (!isOpen) {
+        item.classList.add('open');
+        this.setAttribute('aria-expanded', 'true');
+        answer.style.maxHeight = answer.scrollHeight + 'px';
+      }
+    });
+  });
+
+  // ── Scroll Fade-in ──
+  var fadeEls = document.querySelectorAll('.fade-in');
+
+  function checkFade() {
+    var windowHeight = window.innerHeight;
+    fadeEls.forEach(function(el) {
+      var rect = el.getBoundingClientRect();
+      if (rect.top < windowHeight - 80) {
+        el.classList.add('visible');
+      }
+    });
+  }
+
+  window.addEventListener('scroll', checkFade, { passive: true });
+  window.addEventListener('load', checkFade);
+  checkFade();
+
+})();
+</script>
+
+</body>
+</html>

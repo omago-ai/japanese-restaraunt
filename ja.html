@@ -1,0 +1,1663 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>鮨一 Sushi Kazu — 南青山のおまかせ鮨</title>
+<meta name="description" content="南青山の隠れ家鮨処。大将・一（かず）が厳選した旬の素材で仕立てる、カウンター8席のみの完全予約制おまかせ。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500&family=Noto+Sans+JP:wght@300;400;500&family=Noto+Serif+JP:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --bg: #0a0a0a;
+  --bg-elevated: #141414;
+  --bg-subtle: #1a1a1a;
+  --cream: #f5f0e8;
+  --cream-muted: rgba(245, 240, 232, 0.7);
+  --cream-dim: rgba(245, 240, 232, 0.4);
+  --gold: #b8976a;
+  --gold-muted: rgba(184, 151, 106, 0.5);
+  --gold-dim: rgba(184, 151, 106, 0.2);
+  --border: rgba(245, 240, 232, 0.08);
+  --font-serif-en: 'Cormorant Garamond', serif;
+  --font-serif-jp: 'Noto Serif JP', serif;
+  --font-sans-en: 'Inter', sans-serif;
+  --font-sans-jp: 'Noto Sans JP', sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  background: var(--bg);
+  color: var(--cream);
+  font-family: var(--font-sans-jp), var(--font-sans-en), sans-serif;
+  font-weight: 300;
+  line-height: 1.8;
+  letter-spacing: 0.02em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+a {
+  color: var(--gold);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: var(--cream);
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--gold-dim);
+  border-radius: 3px;
+}
+
+/* ── Navigation ── */
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  padding: 0 2rem;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(10, 10, 10, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  transition: background 0.4s ease;
+}
+
+.nav-logo {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  text-decoration: none;
+  color: var(--cream);
+}
+
+.nav-logo-kanji {
+  font-family: var(--font-serif-jp);
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+}
+
+.nav-logo-en {
+  font-family: var(--font-serif-en);
+  font-size: 0.7rem;
+  font-weight: 400;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  list-style: none;
+}
+
+.nav-links a {
+  font-size: 0.8rem;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  color: var(--cream-muted);
+  text-decoration: none;
+  transition: color 0.3s ease;
+  position: relative;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--gold);
+  transition: width 0.3s ease;
+}
+
+.nav-links a:hover {
+  color: var(--cream);
+}
+
+.nav-links a:hover::after {
+  width: 100%;
+}
+
+/* Language Switcher */
+.lang-switcher {
+  position: relative;
+  margin-left: 1rem;
+  padding-left: 1.5rem;
+  border-left: 1px solid var(--border);
+}
+
+.lang-current {
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  color: var(--cream-muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: none;
+  border: none;
+  font-family: inherit;
+  padding: 0.4rem 0;
+}
+
+.lang-current svg {
+  width: 10px;
+  height: 10px;
+  fill: var(--cream-dim);
+  transition: transform 0.3s ease;
+}
+
+.lang-switcher.open .lang-current svg {
+  transform: rotate(180deg);
+}
+
+.lang-dropdown {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  right: 0;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  padding: 0.5rem 0;
+  min-width: 140px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px);
+  transition: all 0.3s ease;
+}
+
+.lang-switcher.open .lang-dropdown {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.lang-dropdown a {
+  display: block;
+  padding: 0.5rem 1.2rem;
+  font-size: 0.75rem;
+  color: var(--cream-muted);
+  letter-spacing: 0.05em;
+  transition: all 0.2s ease;
+}
+
+.lang-dropdown a:hover {
+  background: var(--gold-dim);
+  color: var(--cream);
+}
+
+.lang-dropdown a.active {
+  color: var(--gold);
+}
+
+/* Hamburger */
+.nav-hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+}
+
+.nav-hamburger span {
+  display: block;
+  width: 22px;
+  height: 1px;
+  background: var(--cream);
+  transition: all 0.3s ease;
+}
+
+/* Mobile Nav */
+.mobile-menu {
+  display: none;
+  position: fixed;
+  top: 72px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(10, 10, 10, 0.97);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  z-index: 999;
+  padding: 3rem 2rem;
+  flex-direction: column;
+  gap: 0;
+}
+
+.mobile-menu.open {
+  display: flex;
+}
+
+.mobile-menu a {
+  display: block;
+  padding: 1rem 0;
+  font-size: 1rem;
+  color: var(--cream-muted);
+  border-bottom: 1px solid var(--border);
+  letter-spacing: 0.1em;
+}
+
+.mobile-menu a:hover {
+  color: var(--cream);
+}
+
+.mobile-lang {
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.mobile-lang a {
+  border: none;
+  padding: 0.5rem 0;
+  font-size: 0.85rem;
+  color: var(--cream-dim);
+}
+
+.mobile-lang a.active {
+  color: var(--gold);
+}
+
+@media (max-width: 900px) {
+  .nav-links {
+    display: none;
+  }
+  .lang-switcher {
+    display: none;
+  }
+  .nav-hamburger {
+    display: flex;
+  }
+}
+
+/* ── Hero ── */
+.hero {
+  position: relative;
+  height: 100vh;
+  min-height: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background: url('https://images.unsplash.com/photo-1579871494447-9811cf80d66c?w=1400&q=80') center/cover no-repeat;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(10, 10, 10, 0.55) 0%,
+    rgba(10, 10, 10, 0.4) 40%,
+    rgba(10, 10, 10, 0.65) 100%
+  );
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  padding: 2rem;
+}
+
+.hero-title {
+  font-family: var(--font-serif-jp);
+  font-size: clamp(4rem, 12vw, 8rem);
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  line-height: 1.1;
+  margin-bottom: 0.2em;
+  text-shadow: 0 2px 40px rgba(0,0,0,0.5);
+}
+
+.hero-subtitle {
+  font-family: var(--font-serif-en);
+  font-size: clamp(0.65rem, 1.5vw, 0.85rem);
+  font-weight: 300;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 2.5rem;
+}
+
+.hero-tagline {
+  font-family: var(--font-serif-jp);
+  font-size: clamp(0.9rem, 2vw, 1.15rem);
+  font-weight: 300;
+  letter-spacing: 0.12em;
+  color: var(--cream-muted);
+  margin-bottom: 3rem;
+  line-height: 1.9;
+}
+
+.hero-cta {
+  display: inline-block;
+  padding: 1rem 3rem;
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  font-family: var(--font-sans-jp);
+  font-size: 0.8rem;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  transition: all 0.4s ease;
+}
+
+.hero-cta:hover {
+  background: var(--gold);
+  color: var(--bg);
+}
+
+.hero-note {
+  margin-top: 2.5rem;
+  font-size: 0.72rem;
+  color: var(--cream-dim);
+  letter-spacing: 0.1em;
+}
+
+.hero-scroll {
+  position: absolute;
+  bottom: 2.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.hero-scroll-line {
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(to bottom, var(--gold-muted), transparent);
+  animation: scrollPulse 2s ease-in-out infinite;
+}
+
+@keyframes scrollPulse {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}
+
+/* ── Sections ── */
+.section {
+  padding: 7rem 2rem;
+}
+
+.section-lg {
+  padding: 9rem 2rem;
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.container-narrow {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.section-label {
+  font-family: var(--font-serif-en);
+  font-size: 0.65rem;
+  font-weight: 400;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 0.8rem;
+}
+
+.section-title {
+  font-family: var(--font-serif-jp);
+  font-size: clamp(1.8rem, 4vw, 2.4rem);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  margin-bottom: 1rem;
+  line-height: 1.4;
+}
+
+.section-divider {
+  width: 40px;
+  height: 1px;
+  background: var(--gold);
+  margin: 1.5rem 0 2.5rem 0;
+}
+
+.section-divider-center {
+  width: 40px;
+  height: 1px;
+  background: var(--gold);
+  margin: 1.5rem auto 2.5rem auto;
+}
+
+/* ── Philosophy ── */
+.philosophy {
+  background: var(--bg);
+}
+
+.philosophy-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  align-items: center;
+}
+
+.philosophy-text p {
+  font-size: 0.95rem;
+  line-height: 2;
+  color: var(--cream-muted);
+  margin-bottom: 1.5rem;
+}
+
+.philosophy-text p:last-child {
+  margin-bottom: 0;
+}
+
+.philosophy-image {
+  position: relative;
+  overflow: hidden;
+}
+
+.philosophy-image img {
+  width: 100%;
+  height: 500px;
+  object-fit: cover;
+  filter: brightness(0.85) contrast(1.05);
+}
+
+.philosophy-image::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: 1px solid var(--gold-dim);
+  pointer-events: none;
+}
+
+@media (max-width: 768px) {
+  .philosophy-grid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+  .philosophy-image img {
+    height: 350px;
+  }
+}
+
+/* ── Menu ── */
+.menu {
+  background: var(--bg-subtle);
+}
+
+.menu-category {
+  margin-bottom: 4rem;
+}
+
+.menu-category:last-child {
+  margin-bottom: 0;
+}
+
+.menu-category-title {
+  font-family: var(--font-serif-jp);
+  font-size: 1.1rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  color: var(--gold);
+  margin-bottom: 2rem;
+  padding-bottom: 0.8rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.menu-item {
+  display: grid;
+  grid-template-columns: 2rem 1fr auto;
+  gap: 1.2rem;
+  align-items: baseline;
+  padding: 1.2rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.menu-item:last-child {
+  border-bottom: none;
+}
+
+.menu-number {
+  font-family: var(--font-serif-jp);
+  font-size: 0.85rem;
+  color: var(--gold-muted);
+  font-weight: 400;
+}
+
+.menu-name {
+  font-family: var(--font-serif-jp);
+  font-size: 1rem;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.3rem;
+}
+
+.menu-desc {
+  font-size: 0.8rem;
+  color: var(--cream-dim);
+  letter-spacing: 0.03em;
+}
+
+.menu-price {
+  font-family: var(--font-serif-en);
+  font-size: 0.95rem;
+  font-weight: 400;
+  color: var(--cream-muted);
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+
+.menu-additions {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border);
+}
+
+.menu-additions-title {
+  font-family: var(--font-serif-jp);
+  font-size: 0.95rem;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  color: var(--cream-muted);
+  margin-bottom: 1.5rem;
+}
+
+.menu-addition-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 0.6rem 0;
+  font-size: 0.85rem;
+  color: var(--cream-dim);
+}
+
+.menu-tax-note {
+  margin-top: 2rem;
+  font-size: 0.75rem;
+  color: var(--cream-dim);
+  letter-spacing: 0.05em;
+  text-align: right;
+}
+
+/* ── Reservation ── */
+.reservation {
+  background: var(--bg);
+  text-align: center;
+}
+
+.reservation-badge {
+  display: inline-block;
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  color: var(--gold);
+  border: 1px solid var(--gold-dim);
+  padding: 0.4rem 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.reservation p {
+  font-size: 0.95rem;
+  color: var(--cream-muted);
+  line-height: 2;
+  margin-bottom: 1rem;
+}
+
+.reservation-phone {
+  display: block;
+  font-family: var(--font-serif-en);
+  font-size: clamp(1.6rem, 4vw, 2.2rem);
+  font-weight: 300;
+  letter-spacing: 0.1em;
+  color: var(--cream);
+  margin: 2rem 0;
+  text-decoration: none;
+}
+
+.reservation-phone:hover {
+  color: var(--gold);
+}
+
+.reservation-buttons {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 2.5rem;
+}
+
+.btn-primary {
+  display: inline-block;
+  padding: 1rem 2.5rem;
+  background: var(--gold);
+  color: var(--bg);
+  font-family: var(--font-sans-jp);
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  border: 1px solid var(--gold);
+  transition: all 0.4s ease;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  background: transparent;
+  color: var(--gold);
+}
+
+.btn-secondary {
+  display: inline-block;
+  padding: 1rem 2.5rem;
+  background: transparent;
+  color: var(--cream-muted);
+  font-family: var(--font-sans-jp);
+  font-size: 0.8rem;
+  font-weight: 400;
+  letter-spacing: 0.15em;
+  border: 1px solid var(--border);
+  transition: all 0.4s ease;
+  cursor: pointer;
+}
+
+.btn-secondary:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
+.reservation-note {
+  margin-top: 2rem;
+  font-size: 0.75rem;
+  color: var(--cream-dim);
+  letter-spacing: 0.05em;
+}
+
+/* ── Private Dining ── */
+.private-dining {
+  background: var(--bg-subtle);
+}
+
+.private-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: start;
+}
+
+.private-details {
+  list-style: none;
+  margin-top: 2rem;
+}
+
+.private-details li {
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-size: 0.9rem;
+  color: var(--cream-muted);
+}
+
+.private-details li span:last-child {
+  color: var(--cream);
+  font-weight: 400;
+}
+
+.private-note {
+  margin-top: 2rem;
+  font-size: 0.85rem;
+  color: var(--cream-dim);
+  line-height: 1.9;
+}
+
+.private-contact {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  padding: 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+}
+
+.private-contact p {
+  font-size: 0.9rem;
+  color: var(--cream-muted);
+  line-height: 1.9;
+  margin-bottom: 1.5rem;
+}
+
+.private-contact p:last-of-type {
+  margin-bottom: 2rem;
+}
+
+@media (max-width: 768px) {
+  .private-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  .private-contact {
+    padding: 2rem;
+  }
+}
+
+/* ── FAQ ── */
+.faq {
+  background: var(--bg);
+}
+
+.faq-item {
+  border-bottom: 1px solid var(--border);
+}
+
+.faq-question {
+  width: 100%;
+  background: none;
+  border: none;
+  color: var(--cream);
+  font-family: var(--font-sans-jp), var(--font-sans-en), sans-serif;
+  font-size: 0.9rem;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  text-align: left;
+  padding: 1.5rem 0;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  line-height: 1.6;
+  transition: color 0.3s ease;
+}
+
+.faq-question:hover {
+  color: var(--gold);
+}
+
+.faq-icon {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  position: relative;
+}
+
+.faq-icon::before,
+.faq-icon::after {
+  content: '';
+  position: absolute;
+  background: var(--gold);
+  transition: transform 0.3s ease;
+}
+
+.faq-icon::before {
+  width: 12px;
+  height: 1px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.faq-icon::after {
+  width: 1px;
+  height: 12px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.faq-item.open .faq-icon::after {
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease, padding 0.4s ease;
+}
+
+.faq-answer-inner {
+  padding: 0 0 1.5rem 0;
+  font-size: 0.85rem;
+  color: var(--cream-dim);
+  line-height: 1.9;
+}
+
+.faq-item.open .faq-answer {
+  max-height: 300px;
+}
+
+/* ── Instagram ── */
+.instagram {
+  background: var(--bg-subtle);
+  text-align: center;
+}
+
+.instagram-handle {
+  font-family: var(--font-sans-en);
+  font-size: 0.85rem;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  color: var(--cream-muted);
+  margin-bottom: 3rem;
+}
+
+.instagram-handle a {
+  color: var(--gold);
+}
+
+.instagram-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 4px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.instagram-item {
+  position: relative;
+  aspect-ratio: 1;
+  overflow: hidden;
+}
+
+.instagram-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.8) saturate(0.9);
+  transition: all 0.5s ease;
+}
+
+.instagram-item:hover img {
+  filter: brightness(1) saturate(1);
+  transform: scale(1.05);
+}
+
+.instagram-item::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 10, 10, 0.2);
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.instagram-item:hover::after {
+  opacity: 0;
+}
+
+@media (max-width: 600px) {
+  .instagram-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* ── Footer ── */
+.footer {
+  background: var(--bg);
+  border-top: 1px solid var(--border);
+  padding: 5rem 2rem 3rem;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 3rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.footer-logo {
+  font-family: var(--font-serif-jp);
+  font-size: 1.8rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.3rem;
+}
+
+.footer-logo-en {
+  font-family: var(--font-serif-en);
+  font-size: 0.65rem;
+  font-weight: 300;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1.5rem;
+}
+
+.footer-info p {
+  font-size: 0.8rem;
+  color: var(--cream-dim);
+  line-height: 1.9;
+}
+
+.footer-col-title {
+  font-family: var(--font-serif-jp);
+  font-size: 0.85rem;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  margin-bottom: 1.5rem;
+  color: var(--cream);
+}
+
+.footer-col p, .footer-col a {
+  font-size: 0.8rem;
+  color: var(--cream-dim);
+  line-height: 2;
+  display: block;
+}
+
+.footer-col a:hover {
+  color: var(--gold);
+}
+
+.footer-lang {
+  display: flex;
+  gap: 1.2rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+
+.footer-lang a {
+  font-size: 0.75rem;
+  color: var(--cream-dim);
+  letter-spacing: 0.05em;
+}
+
+.footer-lang a.active {
+  color: var(--gold);
+}
+
+.footer-bottom {
+  max-width: 1100px;
+  margin: 4rem auto 0;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.footer-copyright {
+  font-size: 0.7rem;
+  color: var(--cream-dim);
+  letter-spacing: 0.05em;
+}
+
+.footer-links {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.footer-links a {
+  font-size: 0.7rem;
+  color: var(--cream-dim);
+  letter-spacing: 0.05em;
+}
+
+@media (max-width: 768px) {
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+  .footer-bottom {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+/* ── Access / Map section within footer ── */
+.access {
+  background: var(--bg-subtle);
+  text-align: center;
+}
+
+.access-address {
+  font-family: var(--font-sans-jp);
+  font-size: 1rem;
+  color: var(--cream-muted);
+  letter-spacing: 0.08em;
+  line-height: 2;
+  margin-bottom: 0.5rem;
+}
+
+.access-station {
+  font-size: 0.85rem;
+  color: var(--cream-dim);
+  margin-bottom: 2rem;
+}
+
+.access-map {
+  max-width: 800px;
+  margin: 0 auto;
+  aspect-ratio: 16/7;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.access-map iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  filter: grayscale(1) invert(1) brightness(0.55) contrast(1.2);
+}
+
+/* ── Animations ── */
+.fade-in {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Chat Widget Placeholder ── */
+#omago-chat-widget {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 9999;
+}
+</style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="nav">
+  <a href="#" class="nav-logo">
+    <span class="nav-logo-kanji">鮨一</span>
+    <span class="nav-logo-en">Sushi Kazu</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#philosophy">理念</a></li>
+    <li><a href="#menu">お品書き</a></li>
+    <li><a href="#reservation">ご予約</a></li>
+    <li><a href="#private">個室</a></li>
+    <li><a href="#faq">よくある質問</a></li>
+    <li><a href="#access">アクセス</a></li>
+  </ul>
+  <div class="lang-switcher" id="langSwitcher">
+    <button class="lang-current" onclick="toggleLang()">
+      日本語
+      <svg viewBox="0 0 10 6"><path d="M0 0l5 6 5-6z"/></svg>
+    </button>
+    <div class="lang-dropdown">
+      <a href="ja.html" class="active">日本語</a>
+      <a href="index.html">繁中（港）</a>
+      <a href="tw.html">繁中（台）</a>
+      <a href="en.html">English</a>
+      <a href="ko.html">한국어</a>
+    </div>
+  </div>
+  <button class="nav-hamburger" id="hamburger" onclick="toggleMobile()" aria-label="メニュー">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#philosophy" onclick="closeMobile()">理念</a>
+  <a href="#menu" onclick="closeMobile()">お品書き</a>
+  <a href="#reservation" onclick="closeMobile()">ご予約</a>
+  <a href="#private" onclick="closeMobile()">個室</a>
+  <a href="#faq" onclick="closeMobile()">よくある質問</a>
+  <a href="#access" onclick="closeMobile()">アクセス</a>
+  <div class="mobile-lang">
+    <a href="ja.html" class="active">日本語</a>
+    <a href="index.html">繁體中文</a>
+    <a href="en.html">English</a>
+    <a href="ko.html">한국어</a>
+  </div>
+</div>
+
+<!-- Hero -->
+<section class="hero" id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <h1 class="hero-title">鮨一</h1>
+    <p class="hero-subtitle">Sushi Kazu</p>
+    <p class="hero-tagline">一人の職人。一つのカウンター。忘れられない一時。</p>
+    <a href="#reservation" class="hero-cta">ご予約</a>
+    <p class="hero-note">カウンター8席のみ・完全予約制</p>
+  </div>
+  <div class="hero-scroll">
+    <div class="hero-scroll-line"></div>
+  </div>
+</section>
+
+<!-- Philosophy -->
+<section class="section section-lg philosophy" id="philosophy">
+  <div class="container">
+    <div class="philosophy-grid">
+      <div class="philosophy-text fade-in">
+        <p class="section-label">Philosophy</p>
+        <h2 class="section-title">理念</h2>
+        <div class="section-divider"></div>
+        <p>大将・一（かず）は、東京・銀座の名店で15年にわたり研鑽を積みました。師匠のもとで学んだのは、技術だけではありません。素材への敬意、季節を読む感性、そしてお客様一人ひとりに向き合う姿勢——それらすべてが、鮨一の根底に流れています。</p>
+        <p>毎朝、豊洲市場に自ら足を運び、その日最良の魚を目利きで選び抜きます。鮪、白身、光りもの、貝類。仕入れた素材の状態を見極め、仕事を施し、最適なタイミングでお出しする。それが鮨一のおまかせです。</p>
+        <p>カウンター8席という小さな空間だからこそ、一貫一貫にすべてを込められる。お客様の表情を見ながら、握りの大きさ、シャリの温度、ネタの厚みを微調整する。その日、その瞬間だけの鮨を、どうぞお愉しみください。</p>
+      </div>
+      <div class="philosophy-image fade-in">
+        <img src="https://images.unsplash.com/photo-1553621042-f6e147245754?w=800&q=80" alt="大将が丁寧に鮨を握る姿" loading="lazy">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Menu -->
+<section class="section section-lg menu" id="menu">
+  <div class="container-narrow">
+    <div class="fade-in" style="text-align:center; margin-bottom:4rem;">
+      <p class="section-label">Omakase</p>
+      <h2 class="section-title">お品書き</h2>
+      <div class="section-divider-center"></div>
+    </div>
+
+    <!-- Lunch -->
+    <div class="menu-category fade-in">
+      <h3 class="menu-category-title">昼のおまかせ</h3>
+
+      <div class="menu-item">
+        <span class="menu-number">一</span>
+        <div>
+          <div class="menu-name">鮨一ランチ</div>
+          <div class="menu-desc">握り10貫 / 手巻き / 味噌汁</div>
+        </div>
+        <span class="menu-price">&yen;15,000</span>
+      </div>
+
+      <div class="menu-item">
+        <span class="menu-number">二</span>
+        <div>
+          <div class="menu-name">特選ランチ</div>
+          <div class="menu-desc">握り12貫 / 手巻き / 茶碗蒸し / 味噌汁</div>
+        </div>
+        <span class="menu-price">&yen;22,000</span>
+      </div>
+    </div>
+
+    <!-- Dinner -->
+    <div class="menu-category fade-in">
+      <h3 class="menu-category-title">夜のおまかせ</h3>
+
+      <div class="menu-item">
+        <span class="menu-number">三</span>
+        <div>
+          <div class="menu-name">鮨一ディナー</div>
+          <div class="menu-desc">握り15貫 / 前菜 / 手巻き / 玉子 / 味噌汁</div>
+        </div>
+        <span class="menu-price">&yen;33,000</span>
+      </div>
+
+      <div class="menu-item">
+        <span class="menu-number">四</span>
+        <div>
+          <div class="menu-name">特選おまかせ</div>
+          <div class="menu-desc">握り18貫 / 前菜3品 / 手巻き / 玉子 / デザート</div>
+        </div>
+        <span class="menu-price">&yen;45,000</span>
+      </div>
+
+      <div class="menu-item">
+        <span class="menu-number">五</span>
+        <div>
+          <div class="menu-name">極みおまかせ</div>
+          <div class="menu-desc">旬の食材による約20品のフルコース</div>
+        </div>
+        <span class="menu-price">&yen;65,000</span>
+      </div>
+    </div>
+
+    <!-- Additions -->
+    <div class="menu-additions fade-in">
+      <h4 class="menu-additions-title">追加</h4>
+      <div class="menu-addition-row">
+        <span>日本酒ペアリング</span>
+        <span>&yen;8,000</span>
+      </div>
+      <div class="menu-addition-row">
+        <span>特選日本酒ペアリング</span>
+        <span>&yen;15,000</span>
+      </div>
+      <div class="menu-addition-row">
+        <span>雲丹追加</span>
+        <span>&yen;5,500</span>
+      </div>
+      <div class="menu-addition-row">
+        <span>大トロ追加</span>
+        <span>&yen;4,000</span>
+      </div>
+      <p class="menu-tax-note">※ 表示価格はすべて税込です</p>
+    </div>
+  </div>
+</section>
+
+<!-- Reservation -->
+<section class="section section-lg reservation" id="reservation">
+  <div class="container-narrow fade-in">
+    <p class="section-label">Reservation</p>
+    <h2 class="section-title">ご予約</h2>
+    <div class="section-divider-center"></div>
+    <span class="reservation-badge">完全予約制 — 8席</span>
+    <p>鮨一は完全予約制でございます。<br>お席に限りがございますので、お早めのご予約をお勧めいたします。</p>
+    <a href="tel:+81368045537" class="reservation-phone">+81 3-6804-5537</a>
+    <div class="reservation-buttons">
+      <a href="tel:+81368045537" class="btn-primary">お電話で予約</a>
+      <a href="#" class="btn-secondary">食べログで予約</a>
+    </div>
+    <p class="reservation-note">※ 営業時間中はお電話に出られない場合がございます。ご了承ください。</p>
+  </div>
+</section>
+
+<!-- Private Dining -->
+<section class="section section-lg private-dining" id="private">
+  <div class="container">
+    <div class="fade-in" style="text-align:center; margin-bottom:4rem;">
+      <p class="section-label">Private Dining</p>
+      <h2 class="section-title">個室</h2>
+      <div class="section-divider-center"></div>
+    </div>
+    <div class="private-grid fade-in">
+      <div>
+        <p style="font-size:0.95rem; color:var(--cream-muted); line-height:2;">
+          大切な方とのお時間に、完全個室をご用意しております。接待やお祝いの席にふさわしい、静寂に包まれたプライベート空間で、大将のおまかせをお愉しみください。
+        </p>
+        <ul class="private-details">
+          <li>
+            <span>定員</span>
+            <span>最大4名様</span>
+          </li>
+          <li>
+            <span>ご利用用途</span>
+            <span>お祝い・接待</span>
+          </li>
+          <li>
+            <span>最低ご利用金額</span>
+            <span>&yen;200,000</span>
+          </li>
+          <li>
+            <span>ご予約期限</span>
+            <span>3日前までにご予約ください</span>
+          </li>
+        </ul>
+      </div>
+      <div class="private-contact">
+        <p>個室のご予約・詳細につきましては、<br>お電話にてお問い合わせくださいませ。</p>
+        <p>お客様のご要望に合わせて、<br>特別なお品書きもご用意いたします。</p>
+        <a href="tel:+81368045537" class="btn-primary" style="text-align:center;">お電話でお問い合わせ</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section section-lg faq" id="faq">
+  <div class="container-narrow">
+    <div class="fade-in" style="text-align:center; margin-bottom:4rem;">
+      <p class="section-label">FAQ</p>
+      <h2 class="section-title">よくある質問</h2>
+      <div class="section-divider-center"></div>
+    </div>
+
+    <div class="fade-in">
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          <span>予約はどのくらい前にすればいいですか？</span>
+          <span class="faq-icon"></span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">1〜2週間前のご予約を推奨しております。特に週末や祝日は早めに埋まることが多いため、お早めにご連絡くださいませ。</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          <span>アレルギー対応はしていますか？</span>
+          <span class="faq-icon"></span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">ご予約時にお申し付けください。可能な限り対応いたしますが、完全な除去を保証することはできかねますので、あらかじめご了承ください。</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          <span>ドレスコードはありますか？</span>
+          <span class="faq-icon"></span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">スマートカジュアルでお越しください。サンダルやスポーツウェアでのご来店はご遠慮いただいております。</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          <span>特定のネタをリクエストできますか？</span>
+          <span class="faq-icon"></span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">当日最良のネタを大将が選びます。ご希望はお伝えいただけますが、仕入れ状況により確約はいたしかねます。おまかせの醍醐味として、大将の目利きをお愉しみください。</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          <span>キャンセルポリシーを教えてください。</span>
+          <span class="faq-icon"></span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">24時間前までのキャンセルは無料です。24時間以内のキャンセルにつきましては、お一人様あたり¥8,000のキャンセル料を頂戴しております。</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          <span>ベジタリアンや生魚が苦手でも大丈夫ですか？</span>
+          <span class="faq-icon"></span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">火を通した代替のお品をご用意することは可能ですが、おまかせ本来の趣旨とは異なる内容となります。事前にご相談くださいませ。</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          <span>お酒の持ち込みはできますか？</span>
+          <span class="faq-icon"></span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">お一人様2本まで、1本あたり¥5,000の持ち込み料にてお受けしております。</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          <span>誕生日や記念日の対応はしていますか？</span>
+          <span class="faq-icon"></span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">事前にお知らせいただければ、特別なデザートをご用意いたします。ご予約の際にお気軽にお申し付けください。</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          <span>予約なしでの来店はできますか？</span>
+          <span class="faq-icon"></span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">申し訳ございませんが、完全予約制のためお受けすることができません。お電話または食べログよりご予約をお願いいたします。</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          <span>お支払い方法は何がありますか？</span>
+          <span class="faq-icon"></span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">現金、各種クレジットカード（VISA・Mastercard・AMEX・JCB）、交通系ICカードをご利用いただけます。</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          <span>遅刻した場合はどうなりますか？</span>
+          <span class="faq-icon"></span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">15分以上の遅刻はキャンセル扱いとさせていただく場合がございます。遅れる場合は必ず事前にお電話ください。</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          <span>ケーキの持ち込みはできますか？</span>
+          <span class="faq-icon"></span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">可能でございます。カット料として¥2,000を頂戴しております。お持ち込みの際は事前にお知らせください。</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          <span>お子様連れでも大丈夫ですか？</span>
+          <span class="faq-icon"></span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">12歳以上のお子様を推奨しております。お席で静かにお過ごしいただけることが条件となりますので、ご理解のほどお願いいたします。</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          <span>デポジットは必要ですか？</span>
+          <span class="faq-icon"></span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">4名様以上のご予約、個室のご利用、特別な日のご予約につきましては、デポジットをお願いしております。詳細はご予約時にご案内いたします。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Instagram -->
+<section class="section instagram" id="instagram">
+  <div class="container">
+    <div class="fade-in">
+      <p class="section-label">Instagram</p>
+      <p class="instagram-handle"><a href="https://instagram.com/sushikazu.tokyo" target="_blank" rel="noopener">@sushikazu.tokyo</a></p>
+    </div>
+    <div class="instagram-grid fade-in">
+      <a href="https://instagram.com/sushikazu.tokyo" target="_blank" rel="noopener" class="instagram-item">
+        <img src="https://images.unsplash.com/photo-1579871494447-9811cf80d66c?w=400&q=80" alt="鮨一の料理" loading="lazy">
+      </a>
+      <a href="https://instagram.com/sushikazu.tokyo" target="_blank" rel="noopener" class="instagram-item">
+        <img src="https://images.unsplash.com/photo-1553621042-f6e147245754?w=400&q=80" alt="鮨一の料理" loading="lazy">
+      </a>
+      <a href="https://instagram.com/sushikazu.tokyo" target="_blank" rel="noopener" class="instagram-item">
+        <img src="https://images.unsplash.com/photo-1617196034796-73dfa7b1fd56?w=400&q=80" alt="鮨一の料理" loading="lazy">
+      </a>
+      <a href="https://instagram.com/sushikazu.tokyo" target="_blank" rel="noopener" class="instagram-item">
+        <img src="https://images.unsplash.com/photo-1611143669185-af224c5e3252?w=400&q=80" alt="鮨一の料理" loading="lazy">
+      </a>
+      <a href="https://instagram.com/sushikazu.tokyo" target="_blank" rel="noopener" class="instagram-item">
+        <img src="https://images.unsplash.com/photo-1540648639573-8c848de23f0a?w=400&q=80" alt="鮨一の料理" loading="lazy">
+      </a>
+      <a href="https://instagram.com/sushikazu.tokyo" target="_blank" rel="noopener" class="instagram-item">
+        <img src="https://images.unsplash.com/photo-1514190051997-0f6f39ca5cde?w=400&q=80" alt="鮨一の料理" loading="lazy">
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Access -->
+<section class="section section-lg access" id="access">
+  <div class="container-narrow fade-in">
+    <p class="section-label">Access</p>
+    <h2 class="section-title">アクセス</h2>
+    <div class="section-divider-center"></div>
+    <p class="access-address">
+      〒107-0062<br>
+      東京都港区南青山3-8-12 青山Kビル2F
+    </p>
+    <p class="access-station">東京メトロ銀座線・半蔵門線・千代田線「表参道」駅 A4出口より徒歩4分</p>
+    <div class="access-map">
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3241.3!2d139.717!3d35.665!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzXCsDM5JzU0LjAiTiAxMznCsDQzJzAxLjIiRQ!5e0!3m2!1sja!2sjp!4v1" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="鮨一の地図"></iframe>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-grid">
+    <div class="footer-info">
+      <div class="footer-logo">鮨一</div>
+      <div class="footer-logo-en">Sushi Kazu</div>
+      <p>
+        東京都港区南青山3-8-12<br>
+        青山Kビル2F<br><br>
+        <a href="tel:+81368045537" style="color:var(--cream-dim);">+81 3-6804-5537</a>
+      </p>
+    </div>
+    <div class="footer-col">
+      <h4 class="footer-col-title">営業時間</h4>
+      <p>
+        昼の部 12:00〜14:30<br>
+        （最終入店 13:30）<br><br>
+        夜の部 18:00〜22:00<br>
+        （最終入店 20:30）<br><br>
+        定休日：火曜日
+      </p>
+    </div>
+    <div class="footer-col">
+      <h4 class="footer-col-title">リンク</h4>
+      <a href="https://instagram.com/sushikazu.tokyo" target="_blank" rel="noopener">Instagram — @sushikazu.tokyo</a>
+      <a href="#">食べログ</a>
+      <div class="footer-lang">
+        <a href="ja.html" class="active">日本語</a>
+        <a href="index.html">繁中（港）</a>
+      <a href="tw.html">繁中（台）</a>
+        <a href="en.html">English</a>
+        <a href="ko.html">한국어</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p class="footer-copyright">&copy; 2024 鮨一 Sushi Kazu. All rights reserved.</p>
+  </div>
+</footer>
+
+<!-- Chat Widget Placeholder -->
+<div id="omago-chat-widget"></div>
+
+<script>
+// Language Switcher
+function toggleLang() {
+  document.getElementById('langSwitcher').classList.toggle('open');
+}
+
+// Close lang dropdown on outside click
+document.addEventListener('click', function(e) {
+  var switcher = document.getElementById('langSwitcher');
+  if (!switcher.contains(e.target)) {
+    switcher.classList.remove('open');
+  }
+});
+
+// Mobile Menu
+function toggleMobile() {
+  var menu = document.getElementById('mobileMenu');
+  menu.classList.toggle('open');
+}
+
+function closeMobile() {
+  document.getElementById('mobileMenu').classList.remove('open');
+}
+
+// FAQ Accordion
+function toggleFaq(button) {
+  var item = button.parentElement;
+  var isOpen = item.classList.contains('open');
+
+  // Close all
+  document.querySelectorAll('.faq-item').forEach(function(el) {
+    el.classList.remove('open');
+  });
+
+  // Open clicked if it was closed
+  if (!isOpen) {
+    item.classList.add('open');
+  }
+}
+
+// Scroll Animations
+var observer = new IntersectionObserver(function(entries) {
+  entries.forEach(function(entry) {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, {
+  threshold: 0.1,
+  rootMargin: '0px 0px -50px 0px'
+});
+
+document.querySelectorAll('.fade-in').forEach(function(el) {
+  observer.observe(el);
+});
+
+// Nav background on scroll
+var nav = document.querySelector('.nav');
+window.addEventListener('scroll', function() {
+  if (window.scrollY > 60) {
+    nav.style.background = 'rgba(10, 10, 10, 0.95)';
+  } else {
+    nav.style.background = 'rgba(10, 10, 10, 0.85)';
+  }
+});
+</script>
+
+</body>
+</html>
